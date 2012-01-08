@@ -1,6 +1,9 @@
 #pragma once
 
+#ifdef WIN32
 #include <Windows.h>
+#endif
+
 #include <SDL.h>
 #include <gl/GL.h>
 
