@@ -4,8 +4,8 @@
 #include <Windows.h>
 #endif
 
-#include <SDL.h>
-#include <gl/GL.h>
+#include "SDL/SDL.h"
+#include <GL/glut.h>
 
 #include "PhyEngine.h"
 #include "RenderEngine.h"
