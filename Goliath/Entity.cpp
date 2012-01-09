@@ -1,13 +1,14 @@
 /*
- * Entities.cpp
+ * Entity.cpp
  *
  *  Created on: Jan 9, 2012
  *      Author: thakidd
  */
 
-#include "Entities.h"
+#include "Entity.h"
+#include "Number2D.h"
 
-Entities::Entities(Number2D size, Number2D position, bool passable)
+Entity::Entity(Number2D size, Number2D position, bool passable)
 {
     mDimension2D = size;
     mWidth = size.x;
@@ -20,67 +21,67 @@ Entities::Entities(Number2D size, Number2D position, bool passable)
     mPassable = passable;
 }
 
-Entities::~Entities()
+Entity::~Entity()
 {
 
 }
 
-Number2D Entities::getDimensions2D()
+Number2D Entity::getDimensions2D()
 {
     return mDimension2D;
 }
 
-int Entities::getWidth()
+int Entity::getWidth()
 {
     return mWidth;
 }
 
-int Entities::getHeight()
+int Entity::getHeight()
 {
     return mHeight;
 }
 
-Number2D Entities::getPosition2D()
+Number2D Entity::getPosition2D()
 {
     return mPosition2D;
 }
 
-int Entities::getX()
+int Entity::getX()
 {
     return mPositionX;
 }
 
-int Entities::getY()
+int Entity::getY()
 {
     return mPositionY;
 }
 
-Number2D Entities::getSpeed2D()
+Number2D Entity::getSpeed2D()
 {
     return mSpeed2D;
 }
 
-int Entities::getSpeedX()
+int Entity::getSpeedX()
 {
     return mSpeedX;
 }
 
-int Entities::getSpeedY()
+int Entity::getSpeedY()
 {
     return mSpeedY;
 }
 
-bool Entities::isPassable()
+bool Entity::isPassable()
 {
     return mPassable;
 }
 
-void Entities::setPostion(Number2D position)
+void Entity::setPostion(Number2D position)
 {
 
 }
 
-void Entities::setSpeed(Number2D speed)
+void Entity::setSpeed(Number2D speed)
 {
 
 }

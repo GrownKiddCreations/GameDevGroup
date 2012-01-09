@@ -11,13 +11,12 @@
 class Number2D
 {
     public:
+        Number2D();
         Number2D(int, int);
         ~Number2D();
 
         int x; //can be positive
         int y; //can be negative
-        bool isPosX();
-        bool isPosY();
 };
 
-#endif NUMBER2D_H_
+#endif //NUMBER2D_H_

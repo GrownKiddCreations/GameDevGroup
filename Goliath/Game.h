@@ -4,7 +4,7 @@
 #include <Windows.h>
 #endif
 
-#include "SDL/SDL.h"
+#include <SDL.h>
 #include <GL/glut.h>
 
 #include "PhyEngine.h"

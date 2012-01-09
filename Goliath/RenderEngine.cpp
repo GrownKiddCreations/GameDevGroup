@@ -7,7 +7,7 @@
 #endif
 
 #include <GL/gl.h>
-#include "SDL/SDL.h"
+#include <SDL.h>
 #include <vector>
 #include <iostream>
 

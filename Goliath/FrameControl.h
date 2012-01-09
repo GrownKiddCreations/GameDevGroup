@@ -14,7 +14,7 @@ class FrameControl
     private:
         static const int BASE_FPS = 32;
 
-        int     mOldtimeMs, mLastTimeMs;
+        unsigned int     mOldtimeMs, mLastTimeMs;
         float   mSpeedFactor;
         int     mFPS, mAuxFrames;
 };

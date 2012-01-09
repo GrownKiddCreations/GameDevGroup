@@ -1,5 +1,6 @@
 
-#include "SDL/SDL.h"
+#include <SDL.h>
+
 
 #include "FrameControl.h"
 
