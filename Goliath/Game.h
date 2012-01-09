@@ -19,25 +19,24 @@ class Game
         static const int WINDOW_HEIGHT = 480;
         static const int VIEWPORT_WIDTH = WINDOW_WIDTH;
         static const int VIEWPORT_HEIGHT = WINDOW_HEIGHT;
-        
-	public:
-		Game(void);
-		~Game(void);
 
-		int		OnExecute();
-		bool	OnInit();
-		void	OnLoop();
-		void	OnRender();
-		void	OnCleanUp();
+    public:
+        Game(void);
+        ~Game(void);
 
-		void	Quit();
+        int OnExecute();
+        bool OnInit();
+        void OnLoop();
+        void OnRender();
+        void OnCleanUp();
 
+        void Quit();
 
-	private:
-		bool				mIsRunning;
-		PhyEngine			mPhyEngine;
-		RenderEngine		mRenderEngine;
+    private:
+        bool mIsRunning;
+        PhyEngine mPhyEngine;
+        RenderEngine mRenderEngine;
         GoliathEventHandler mEventHandler;
-        FrameControl        mFrameControl;
+        FrameControl mFrameControl;
 };
 

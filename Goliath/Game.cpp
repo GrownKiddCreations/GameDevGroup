@@ -1,17 +1,12 @@
 
-
 #include "Game.h"
 
-
 Game::Game(void) :
-	mPhyEngine(),
-    mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
-        Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT),
-    mEventHandler()
+        mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
+                Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT), mEventHandler()
 {
-	mIsRunning = false;
+    mIsRunning = false;
 }
-
 
 Game::~Game(void)
 {
@@ -20,50 +15,50 @@ Game::~Game(void)
 bool Game::OnInit()
 {
     /* Set itself on the eventHandler */
-	mEventHandler.SetGame(this);
+    mEventHandler.SetGame(this);
 
     /* Initialize game graphics and window */
     if (!mRenderEngine.InitGraphics())
-        return false;	
+        return false;
 
-	/* Initialize camera projection */
-	mRenderEngine.InitCamera();
+    /* Initialize camera projection */
+    mRenderEngine.InitCamera();
 
-	return true;
+    return true;
 
 }
 
 int Game::OnExecute()
 {
     /* Initialize game control objects and resources */
-	if (OnInit() == false)
-		return -1;
-    
-    /* Start the game */
-	mIsRunning = true;
+    if (OnInit() == false)
+        return -1;
 
-	SDL_Event event;
+    /* Start the game */
+    mIsRunning = true;
+
+    SDL_Event event;
 
     /* Main game loop */
-	while (mIsRunning)
-	{
+    while (mIsRunning)
+    {
         /* Checks for events */
-		while (SDL_PollEvent(&event))
-		{
-			/* Pass event to the handler */
-			mEventHandler.OnEvent(&event);
-		}
+        while (SDL_PollEvent(&event))
+        {
+            /* Pass event to the handler */
+            mEventHandler.OnEvent(&event);
+        }
 
         /* Updates game data */
-		OnLoop();
+        OnLoop();
         /* Renders game objects */
-		OnRender();
-	}
+        OnRender();
+    }
 
     /* Cleans allocated resources */
-	OnCleanUp();
+    OnCleanUp();
 
-	return 0;
+    return 0;
 }
 
 void Game::OnLoop()
@@ -84,9 +79,8 @@ void Game::OnCleanUp()
     SDL_Quit();
 }
 
-
 void Game::Quit()
 {
-	mIsRunning = false;
+    mIsRunning = false;
 }
 

@@ -14,21 +14,23 @@ Number2D::Number2D(int x, int y)
 
 bool Number2D::isPosX()
 {
-	bool retVal = true;
+    bool retVal = true;
 
-	if (){}
+    if ()
+    {
+    }
 
-	return retVal;
+    return retVal;
 }
 
 bool Number2D::isPosY()
 {
-	bool retVal = true;
+    bool retVal = true;
 
-	if()
-	{
+    if ()
+    {
 
-	}
+    }
 
-	return retVal;
+    return retVal;
 }

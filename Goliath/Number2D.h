@@ -10,14 +10,14 @@
 
 class Number2D
 {
-	public:
-		Number2D(int, int);
-		~Number2D();
+    public:
+        Number2D(int, int);
+        ~Number2D();
 
-		int x; //can be positive
-		int y; //can be negative
-		bool isPosX();
-		bool isPosY();
+        int x; //can be positive
+        int y; //can be negative
+        bool isPosX();
+        bool isPosY();
 };
 
 #endif NUMBER2D_H_
