@@ -2,10 +2,12 @@
  * RenderEngine Class
  *
  */
+#ifdef WIN32
+#include <Windows.h>
+#endif
 
-#include <windows.h>
 #include <GL/gl.h>
-#include <SDL.h>
+#include "SDL/SDL.h"
 #include <vector>
 #include <iostream>
 

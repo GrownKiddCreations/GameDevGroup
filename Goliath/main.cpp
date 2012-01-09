@@ -3,12 +3,15 @@
 
 #include "Game.h"
 
+using namespace std;
+
+
 int main(int argc, char** argv)
 {
-    std::cout << "Initializing.." << std::endl;
+	cout << "Initializing.." << endl;
 
-    Game theGame;
+	Game theGame;
 
-    return theGame.OnExecute();
+	return theGame.OnExecute();
 
 }
