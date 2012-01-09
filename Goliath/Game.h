@@ -10,6 +10,7 @@
 #include "PhyEngine.h"
 #include "RenderEngine.h"
 #include "GoliathEventHandler.h"
+#include "FrameControl.h"
 
 class Game
 {
@@ -37,5 +38,6 @@ class Game
 		PhyEngine			mPhyEngine;
 		RenderEngine		mRenderEngine;
         GoliathEventHandler mEventHandler;
+        FrameControl        mFrameControl;
 };
 
