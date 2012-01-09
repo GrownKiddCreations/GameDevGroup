@@ -1,4 +1,8 @@
 .metadata
 .cproject
 .project
-/Debug
+.classpath
+.settings
+Debug
+bin
+gen
