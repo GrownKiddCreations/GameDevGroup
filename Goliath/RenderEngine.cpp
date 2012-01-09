@@ -57,7 +57,7 @@ void RenderEngine::InitCamera()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-    /* If left or bottom changes from 0, BoxysEventHandler::WindowToGameCoordinates needs
+    /* If left or bottom changes from 0, GoliathEventHandler::WindowToGameCoordinates needs
        to change -> viewport at origin (0,0) */
     glOrtho(0, mViewportWidth, mViewportHeight, 0, 1, -1);
     
