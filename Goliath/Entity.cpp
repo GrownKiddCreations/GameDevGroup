@@ -76,9 +76,17 @@ bool Entity::isPassable()
     return mPassable;
 }
 
-void Entity::setPostion(Number2D position)
+void Entity::setPosition(Number2D position)
 {
     mPosition2D = position;
+}
+
+void Entity::setPosition(int x, int y)
+{
+    mPositionX = x;
+    mPositionY = y;
+    mPosition2D.x = x;
+    mPosition2D.y = y;
 }
 
 void Entity::setSpeed(Number2D speed)

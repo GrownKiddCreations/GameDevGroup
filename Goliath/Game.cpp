@@ -15,6 +15,7 @@ Game::~Game(void)
 
 bool Game::OnInit()
 {
+
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
 
@@ -72,10 +73,7 @@ void Game::OnRender()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    Number2D dudeDim(150,150);
-    Number2D dudePos(0,0);
-    Entity test("img/afroDude.png", dudeDim, dudePos, false);
-    mRenderEngine.RenderWorld(&test);
+    mRenderEngine.RenderWorld(*(entityList.begin()));
 
     SDL_GL_SwapBuffers();
 }

@@ -25,7 +25,8 @@ class Entity
         bool isPassable();
 
         void setSpeed(Number2D);
-        void setPostion(Number2D);
+        void setPosition(Number2D);
+        void setPosition(int,int);
 
     private:
         int mWidth, mHeight;
