@@ -2,11 +2,12 @@
 #define _ENTITIES_H
 
 #include "Number2D.h"
+#include <string>
 
 class Entity
 {
     public:
-        Entity(Number2D, Number2D, bool);
+        Entity(std::string, Number2D, Number2D, bool);
         ~Entity(void);
 
         Number2D getDimensions2D();

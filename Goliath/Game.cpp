@@ -1,5 +1,6 @@
 
 #include "Game.h"
+#include "Number2D.h"
 
 Game::Game(void) :
         mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
@@ -70,6 +71,11 @@ void Game::OnRender()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+
+    Number2D dudeDim(150,150);
+    Number2D dudePos(0,0);
+    Entity test("img/afroDude.png", dudeDim, dudePos, false);
+    mRenderEngine.RenderWorld(&test);
 
     SDL_GL_SwapBuffers();
 }

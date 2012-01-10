@@ -8,7 +8,7 @@
 #include "Entity.h"
 #include "Number2D.h"
 
-Entity::Entity(Number2D size, Number2D position, bool passable)
+Entity::Entity(std::string filename, Number2D size, Number2D position, bool passable)
 {
     mDimension2D = size;
     mWidth = size.x;
@@ -78,10 +78,10 @@ bool Entity::isPassable()
 
 void Entity::setPostion(Number2D position)
 {
-
+    mPosition2D = position;
 }
 
 void Entity::setSpeed(Number2D speed)
 {
-
+    mSpeed2D = speed;
 }

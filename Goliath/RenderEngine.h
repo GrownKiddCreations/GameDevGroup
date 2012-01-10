@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Entity.h"
+
 class RenderEngine
 {
 	public:
@@ -10,8 +12,8 @@ class RenderEngine
         
         bool InitGraphics();
 		void InitCamera();
-        void RenderWorld();
-        void RenderBeings();
+        void RenderWorld(Entity *being);
+        void RenderEntities();
         
     private:
         int mWindowWidth, mWindowHeight;

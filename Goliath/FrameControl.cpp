@@ -1,9 +1,6 @@
 
-<<<<<<< HEAD
+
 #include <SDL/SDL.h>
-=======
-#include "SDL/SDL.h"
->>>>>>> e36408cc3f5f3f077cc16de72ab6d990cb80cb51
 
 
 #include "FrameControl.h"
