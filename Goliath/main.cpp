@@ -10,7 +10,14 @@ int main(int argc, char** argv)
 {
 	cout << "Initializing.." << endl;
 
+
 	Game theGame;
+
+
+    Number2D dudeDim(150,150);
+    Number2D dudePos(0,0);
+    Entity test("img/afroDude.png", dudeDim, dudePos, false);
+    theGame.entityList.push_back(&test);
 
 	return theGame.OnExecute();
 

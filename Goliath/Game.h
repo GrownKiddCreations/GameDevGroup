@@ -4,13 +4,15 @@
 #include <Windows.h>
 #endif
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include <GL/glut.h>
 
 #include "PhyEngine.h"
 #include "RenderEngine.h"
 #include "GoliathEventHandler.h"
 #include "FrameControl.h"
+#include "Entity.h"
+#include <vector>
 
 class Game
 {
@@ -31,6 +33,9 @@ class Game
         void OnCleanUp();
 
         void Quit();
+
+    public:
+        std::vector<Entity*> entityList;
 
     private:
         bool mIsRunning;

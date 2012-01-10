@@ -33,6 +33,10 @@ void GoliathEventHandler::SetGame(Game *game)
 /* virtual */ void GoliathEventHandler::OnMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle)
 {
+    WindowToGameCoordinates(x,y);
+
+    Entity *test = mpGame->entityList[0];
+    test->setPosition(x,y);
     std::cout << "MMove (" << x << "," << y << ")" << std::endl;
     std::cout << "MMove rel (" << relX << "," << relY << ")" << std::endl;
     if (Left)

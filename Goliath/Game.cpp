@@ -1,5 +1,6 @@
 
 #include "Game.h"
+#include "Number2D.h"
 
 Game::Game(void) :
         mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
@@ -14,6 +15,7 @@ Game::~Game(void)
 
 bool Game::OnInit()
 {
+
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
 
@@ -70,6 +72,8 @@ void Game::OnRender()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+
+    mRenderEngine.RenderWorld(*(entityList.begin()));
 
     SDL_GL_SwapBuffers();
 }
