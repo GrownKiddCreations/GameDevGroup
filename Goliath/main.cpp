@@ -10,9 +10,9 @@ int main(int argc, char** argv)
 {
 	cout << "Initializing.." << endl;
 
-
 	Game theGame;
 
+	World theWorld(10, 10);
 
     Number2D dudeDim(150,150);
     Number2D dudePos(0,0);
