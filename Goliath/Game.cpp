@@ -9,10 +9,13 @@ Game::Game(void) :
                 Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT), mEventHandler()
 {
     mIsRunning = false;
+    mCurrentWorld = NULL;
 }
 
 Game::~Game(void)
 {
+	if (mCurrentWorld != NULL)
+		delete mCurrentWorld;
 }
 
 bool Game::OnInit()
@@ -76,7 +79,10 @@ void Game::OnRender()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    mRenderEngine.RenderWorld(*(entityList.begin()));
+    //mRenderEngine.RenderWorld(*(entityList.begin()));
+    
+    if (mCurrentWorld != NULL)
+		mRenderEngine.RenderWorld2(mCurrentWorld);
 
     SDL_GL_SwapBuffers();
 }
@@ -91,3 +97,12 @@ void Game::Quit()
     mIsRunning = false;
 }
 
+World* Game::getWorld()
+{
+	return mCurrentWorld;
+}
+
+void Game::setWorld(World* world)
+{
+	mCurrentWorld = world;
+}
