@@ -7,7 +7,7 @@ class Tile
 {
 
 	public:
-		Tile(TileType&);
+		Tile(TileType*);
         ~Tile();
         
         TileType* getType();
