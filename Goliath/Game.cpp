@@ -18,17 +18,17 @@ Game::~Game(void)
 		delete mCurrentWorld;
 }
 
-bool Game::OnInit()
+bool Game::onInit()
 {
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
 
     /* Initialize game graphics and window */
-    if (!mRenderEngine.InitGraphics())
+    if (!mRenderEngine.initGraphics())
         return false;
 
     /* Initialize camera projection */
-    mRenderEngine.InitCamera();
+    mRenderEngine.initCamera();
 
     std::cout << "OpenGL version: " << (char*) glGetString(GL_VERSION) << std::endl;
 
@@ -36,10 +36,10 @@ bool Game::OnInit()
 
 }
 
-int Game::OnExecute()
+int Game::onExecute()
 {
     /* Initialize game control objects and resources */
-    if (OnInit() == false)
+    if (onInit() == false)
         return -1;
 
     /* Start the game */
@@ -58,23 +58,23 @@ int Game::OnExecute()
         }
 
         /* Updates game data */
-        OnLoop();
+        onLoop();
         /* Renders game objects */
-        OnRender();
+        onRender();
     }
 
     /* Cleans allocated resources */
-    OnCleanUp();
+    onCleanUp();
 
     return 0;
 }
 
-void Game::OnLoop()
+void Game::onLoop()
 {
 
 }
 
-void Game::OnRender()
+void Game::onRender()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -82,12 +82,12 @@ void Game::OnRender()
     //mRenderEngine.RenderWorld(*(entityList.begin()));
     
     if (mCurrentWorld != NULL)
-		mRenderEngine.RenderWorld2(mCurrentWorld);
+		mRenderEngine.renderWorld(mCurrentWorld);
 
     SDL_GL_SwapBuffers();
 }
 
-void Game::OnCleanUp()
+void Game::onCleanUp()
 {
     SDL_Quit();
 }

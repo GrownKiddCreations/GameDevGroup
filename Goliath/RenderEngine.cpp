@@ -32,7 +32,7 @@ RenderEngine::~RenderEngine(void)
 {
 }
 
-bool RenderEngine::InitGraphics()
+bool RenderEngine::initGraphics()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         return false;
@@ -49,7 +49,7 @@ bool RenderEngine::InitGraphics()
     return true;
 }
 
-void RenderEngine::InitCamera()
+void RenderEngine::initCamera()
 {
     glClearColor(0, 0, 0, 0);
     glViewport(0, 0, mWindowWidth, mWindowHeight);
@@ -66,7 +66,7 @@ void RenderEngine::InitCamera()
     glLoadIdentity();
 }
 
-void RenderEngine::RenderWorld(Entity *being)
+void RenderEngine::renderEntity(Entity *being)
 {
     glColor3f(1, 1, 1);
 
@@ -78,7 +78,7 @@ void RenderEngine::RenderWorld(Entity *being)
     glEnd();
 }
 
-void RenderEngine::RenderWorld2(World *world)
+void RenderEngine::renderWorld(World *world)
 {
 	int TILE_SIZE = 20;
 	int X_OFFSET = 20;

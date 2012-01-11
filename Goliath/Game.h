@@ -27,11 +27,11 @@ class Game
         Game(void);
         ~Game(void);
 
-        int OnExecute();
-        bool OnInit();
-        void OnLoop();
-        void OnRender();
-        void OnCleanUp();
+        int onExecute();
+        bool onInit();
+        void onLoop();
+        void onRender();
+        void onCleanUp();
 
         void Quit();
         

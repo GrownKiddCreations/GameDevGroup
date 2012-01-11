@@ -37,6 +37,6 @@ int main(int argc, char** argv)
     Entity test("img/afroDude.png", dudeDim, dudePos, false);
     theGame.entityList.push_back(&test);
 
-	return theGame.OnExecute();
+	return theGame.onExecute();
 
 }
