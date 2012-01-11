@@ -77,3 +77,41 @@ void RenderEngine::RenderWorld(Entity *being)
     glVertex2f(being->getX(), being->getY() + being->getHeight());
     glEnd();
 }
+
+void RenderEngine::RenderWorld2(World *world)
+{
+	int TILE_SIZE = 20;
+	int X_OFFSET = 20;
+	int Y_OFFSET = 20;
+	
+	Tile*** matrix = world->mMatrix;
+	for (int i = 0; i < world->getWidth(); ++i)
+	{
+		for (int j = 0; j < world->getHeight(); ++j)
+		{
+			Tile* currentTile = matrix[i][j];
+			if (currentTile != NULL)
+			{
+				if (!currentTile->getType()->isPassable())
+				{
+					glColor3f(1, 1, 1);
+					glRectf(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET, TILE_SIZE, TILE_SIZE);
+				}
+			}
+		}	
+	}
+	
+	for (int i = 0; i < world->getWidth(); ++i)
+	{
+		for (int j = 0; j < world->getHeight(); ++j)
+		{
+			glColor3f(0.5, 0.5, 0.5);	
+			glBegin(GL_LINE_LOOP);
+			glVertex2f(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
+			glVertex2f(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
+			glVertex2f(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
+			glVertex2f(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
+			glEnd();
+		}	
+	}
+}
