@@ -34,6 +34,9 @@ class Game
         void OnCleanUp();
 
         void Quit();
+        
+        World* getWorld();
+		void setWorld(World* world);
 
     public:
         std::vector<Entity*> entityList;
@@ -44,5 +47,6 @@ class Game
         RenderEngine mRenderEngine;
         GoliathEventHandler mEventHandler;
         FrameControl mFrameControl;
+        World *mCurrentWorld;
 };
 
