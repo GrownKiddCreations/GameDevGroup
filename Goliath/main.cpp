@@ -12,7 +12,25 @@ int main(int argc, char** argv)
 
 	Game theGame;
 
-	World theWorld(10, 10);
+	TileType *air = new TileType("air", true);
+	TileType *dirt = new TileType("dirt", false);
+	World *theWorld =  new World(30, 22);
+	
+	for (int i = 0; i < theWorld->getWidth(); ++i)
+	{
+		for (int j = 0; j < theWorld->getHeight(); ++j)
+		{
+			//if (j < 3)
+				//theWorld->setTile(new Tile(dirt), i, j);
+			//else
+				theWorld->setTile(new Tile(air), i, j);
+		}
+	}
+
+	theWorld->setTile(new Tile(dirt), 3, 3);
+
+	theGame.setWorld(theWorld);
+	//delete theWorld;
 
     Vector2 dudeDim(150,150);
     Vector2 dudePos(0,0);
