@@ -1,6 +1,10 @@
 #ifndef _WORLD_H
 #define _WORLD_H
 
+#include <vector>
+
+#include "Tile.h"
+
 class World
 {
 
@@ -10,6 +14,7 @@ class World
         
 		int getWidth();
 		int getHeight();
+		bool isTilePassable(int x, int y);
 	
 	private:
 		int mWidth;
