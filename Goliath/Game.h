@@ -11,6 +11,7 @@
 #include "RenderEngine.h"
 #include "GoliathEventHandler.h"
 #include "FrameControl.h"
+#include "World.h"
 #include "Entity.h"
 #include <vector>
 
