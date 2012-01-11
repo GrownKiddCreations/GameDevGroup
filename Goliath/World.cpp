@@ -4,23 +4,29 @@ World::World(int width, int height)
 {
     mWidth = width;
 	mHeight = height;
-	
-	std::vector< std::vector<Tile> > matrix;
-	
-	/*int **matrix = new bool*[width];
-	
-	for (int i = 0; i < width; ++i)
+
+	mMatrix = new Tile**[mWidth];	
+	for (int i = 0; i < mWidth; ++i)
 	{
-		for (int j = 0; j < height; ++j)
+		mMatrix[i] = new Tile*[mHeight];		
+		for (int j = 0; j < mHeight; ++j)
 		{
-			matrix[i][j] = false;
+			mMatrix[i][j] = NULL;
 		}	
-	}*/
+	}
 }
 
 World::~World()
 {
-
+	for (int i = 0; i < mWidth; ++i)
+	{		
+		for (int j = 0; j < mHeight; ++j)
+		{
+			delete mMatrix[i][j];
+		}	
+		delete [] mMatrix[i];
+	}
+	delete [] mMatrix;
 }
 
 int World::getWidth()
@@ -33,7 +39,12 @@ int World::getHeight()
 	return mHeight;
 }
 
-bool World::isTilePassable(int x, int y)
+Tile* World::getTile(int x, int y)
 {
-	return false;
+	return mMatrix[x][y];
+}
+
+void World::setTile(Tile* tile, int x, int y)
+{
+	mMatrix[x][y] = tile;
 }
