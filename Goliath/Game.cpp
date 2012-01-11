@@ -1,6 +1,8 @@
 
 #include "Game.h"
-#include "Number2D.h"
+
+#include <iostream>
+#include "Vector2.h"
 
 Game::Game(void) :
         mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
@@ -15,7 +17,6 @@ Game::~Game(void)
 
 bool Game::OnInit()
 {
-
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
 
@@ -25,6 +26,8 @@ bool Game::OnInit()
 
     /* Initialize camera projection */
     mRenderEngine.InitCamera();
+
+    std::cout << "OpenGL version: " << (char*) glGetString(GL_VERSION) << std::endl;
 
     return true;
 

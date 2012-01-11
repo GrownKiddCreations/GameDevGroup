@@ -6,10 +6,11 @@
  */
 
 #include "Entity.h"
-#include "Number2D.h"
+#include "Vector2.h"
 
-Entity::Entity(std::string filename, Number2D size, Number2D position, bool passable)
+Entity::Entity(std::string filename, Vector2 size, Vector2 position, bool passable)
 {
+    mTextureImgName = filename;
     mDimension2D = size;
     mWidth = size.x;
     mHeight = size.y;
@@ -26,7 +27,7 @@ Entity::~Entity()
 
 }
 
-Number2D Entity::getDimensions2D()
+Vector2 Entity::getDimensions2D()
 {
     return mDimension2D;
 }
@@ -41,7 +42,7 @@ int Entity::getHeight()
     return mHeight;
 }
 
-Number2D Entity::getPosition2D()
+Vector2 Entity::getPosition2D()
 {
     return mPosition2D;
 }
@@ -56,7 +57,7 @@ int Entity::getY()
     return mPositionY;
 }
 
-Number2D Entity::getSpeed2D()
+Vector2 Entity::getSpeed2D()
 {
     return mSpeed2D;
 }
@@ -76,7 +77,7 @@ bool Entity::isPassable()
     return mPassable;
 }
 
-void Entity::setPosition(Number2D position)
+void Entity::setPosition(Vector2 position)
 {
     mPosition2D = position;
 }
@@ -89,7 +90,7 @@ void Entity::setPosition(int x, int y)
     mPosition2D.y = y;
 }
 
-void Entity::setSpeed(Number2D speed)
+void Entity::setSpeed(Vector2 speed)
 {
     mSpeed2D = speed;
 }
