@@ -14,8 +14,8 @@ int main(int argc, char** argv)
 
 	World theWorld(10, 10);
 
-    Number2D dudeDim(150,150);
-    Number2D dudePos(0,0);
+    Vector2 dudeDim(150,150);
+    Vector2 dudePos(0,0);
     Entity test("img/afroDude.png", dudeDim, dudePos, false);
     theGame.entityList.push_back(&test);
 
