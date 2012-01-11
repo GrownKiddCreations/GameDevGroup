@@ -9,7 +9,7 @@
 
 #include "PhyEngine.h"
 #include "RenderEngine.h"
-#include "GoliathEventHandler.h"
+#include "EventHandler.h"
 #include "FrameControl.h"
 #include "World.h"
 #include "Entity.h"
@@ -45,7 +45,7 @@ class Game
         bool mIsRunning;
         PhyEngine mPhyEngine;
         RenderEngine mRenderEngine;
-        GoliathEventHandler mEventHandler;
+        EventHandler mEventHandler;
         FrameControl mFrameControl;
         World *mCurrentWorld;
 };

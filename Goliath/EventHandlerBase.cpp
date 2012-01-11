@@ -1,18 +1,18 @@
 
 
-#include "GEventHandler.h"
+#include "EventHandlerBase.h"
 
 
-GEventHandler::GEventHandler(void)
+EventHandlerBase::EventHandlerBase(void)
 {
 }
 
 
-GEventHandler::~GEventHandler(void)
+EventHandlerBase::~EventHandlerBase(void)
 {
 }
 
-void GEventHandler::OnEvent(SDL_Event *event)
+void EventHandlerBase::OnEvent(SDL_Event *event)
 {
     switch (event->type)
     {

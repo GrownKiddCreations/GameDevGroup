@@ -3,11 +3,11 @@
 #include "SDL/SDL.h"
 
 
-class GEventHandler
+class EventHandlerBase
 {
 public:
-	GEventHandler(void);
-	~GEventHandler(void);
+	EventHandlerBase(void);
+	~EventHandlerBase(void);
 
 	virtual void OnEvent(SDL_Event *event);
 	virtual void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) { }

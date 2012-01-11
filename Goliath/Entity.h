@@ -3,6 +3,7 @@
 
 #include "Vector2.h"
 #include <string>
+#include "FreeImage.h"
 
 class Entity
 {
@@ -27,6 +28,8 @@ class Entity
         void setSpeed(Vector2);
         void setPosition(Vector2);
         void setPosition(int,int);
+
+        bool loadTexture2d();
 
     private:
 

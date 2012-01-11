@@ -57,7 +57,7 @@ void RenderEngine::InitCamera()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    /* If left or bottom changes from 0, GoliathEventHandler::WindowToGameCoordinates needs
+    /* If left or bottom changes from 0, EventHandler::WindowToGameCoordinates needs
      to change -> viewport at origin (0,0) */
     glOrtho(0, mViewportWidth, 0, mViewportHeight, 1, -1);//SDL works with a top-left origin so top and bottom must be swapped
 

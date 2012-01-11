@@ -2,35 +2,35 @@
 
 #include <iostream>
 
-#include "GoliathEventHandler.h"
+#include "EventHandler.h"
 #include "Game.h"
 
 
-GoliathEventHandler::GoliathEventHandler()
+EventHandler::EventHandler()
 {
 }
 
-GoliathEventHandler::GoliathEventHandler(Game *game)
+EventHandler::EventHandler(Game *game)
 {
 	mpGame = game;
 }
 
-GoliathEventHandler::~GoliathEventHandler(void)
+EventHandler::~EventHandler(void)
 {
 }
 
-void GoliathEventHandler::SetGame(Game *game)
+void EventHandler::SetGame(Game *game)
 {
 	if (game != 0)
 		mpGame = game;
 }
 
-/* virtual */ void GoliathEventHandler::OnExit()
+/* virtual */ void EventHandler::OnExit()
 {
 	this->mpGame->Quit();    
 }
 
-/* virtual */ void GoliathEventHandler::OnMouseMove(int x, int y, int relX, int relY,
+/* virtual */ void EventHandler::OnMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle)
 {
     WindowToGameCoordinates(x,y);
@@ -55,27 +55,27 @@ void GoliathEventHandler::SetGame(Game *game)
     }
 }
 
-/* virtual */ void GoliathEventHandler::OnLButtonDown(int x, int y)
+/* virtual */ void EventHandler::OnLButtonDown(int x, int y)
 {
     std::cout << "LBDown (" << x << "," << y << ")" << std::endl;    
 }
 
-/* virtual */ void GoliathEventHandler::OnLButtonUp(int x, int y)
+/* virtual */ void EventHandler::OnLButtonUp(int x, int y)
 {
     std::cout << "LBUp (" << x << "," << y << ")" << std::endl;
 }
 
-/* virtual */ void GoliathEventHandler::OnRButtonDown(int x, int y)
+/* virtual */ void EventHandler::OnRButtonDown(int x, int y)
 {
     std::cout << "RBDown (" << x << "," << y << ")" << std::endl;
 }
 
-/* virtual */ void GoliathEventHandler::OnRButtonUp(int x, int y)
+/* virtual */ void EventHandler::OnRButtonUp(int x, int y)
 {
     std::cout << "RBUp (" << x << "," << y << ")" << std::endl;
 }
 
-void GoliathEventHandler::WindowToGameCoordinates(int &x, int &y)
+void EventHandler::WindowToGameCoordinates(int &x, int &y)
 {
     int gameX, gameY;
 

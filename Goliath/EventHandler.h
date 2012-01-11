@@ -1,15 +1,15 @@
 #pragma once
 
-#include "GEventHandler.h"
+#include "EventHandlerBase.h"
 
 class Game;
 
-class GoliathEventHandler : public GEventHandler
+class EventHandler : public EventHandlerBase
 {
 	public:
-		GoliathEventHandler();
-		GoliathEventHandler(Game *game);
-		~GoliathEventHandler(void);
+		EventHandler();
+		EventHandler(Game *game);
+		~EventHandler(void);
 
 		void SetGame(Game *game);
 		void OnExit();
