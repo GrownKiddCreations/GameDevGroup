@@ -14,12 +14,16 @@ class World
         
 		int getWidth();
 		int getHeight();
-		bool isTilePassable(int x, int y);
-	
+		
+		Tile* getTile(int x, int y);
+		void setTile(Tile* tile, int x, int y);
+		
 	private:
 		int mWidth;
 		int mHeight;
+		Tile*** mMatrix;
 	
+	friend class RenderEngine;
 };
 
 #endif
