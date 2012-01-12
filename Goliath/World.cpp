@@ -6,28 +6,27 @@ World::World(int width, int height)
     mWidth = width;
 	mHeight = height;
 
-	mMatrix = new Tile**[mWidth];	
+	mMatrix = new std::vector< std::vector< Tile* > *>();
 	for (int i = 0; i < mWidth; ++i)
 	{
-		mMatrix[i] = new Tile*[mHeight];		
+		std::vector< Tile* > *w = new std::vector< Tile* >();
+		
 		for (int j = 0; j < mHeight; ++j)
 		{
-			mMatrix[i][j] = NULL;
-		}	
+			w->push_back(NULL);
+		}
+		
+		mMatrix->push_back(w);
 	}
 }
 
 World::~World()
 {
 	for (int i = 0; i < mWidth; ++i)
-	{		
-		for (int j = 0; j < mHeight; ++j)
-		{
-			delete mMatrix[i][j];
-		}	
-		delete [] mMatrix[i];
+	{
+		delete mMatrix->at(i);
 	}
-	delete [] mMatrix;
+	delete mMatrix;
 }
 
 int World::getWidth()
@@ -42,12 +41,13 @@ int World::getHeight()
 
 Tile* World::getTile(int x, int y)
 {
-	return mMatrix[x][y];
+	return mMatrix->at(x)->at(y);
 }
 
 void World::setTile(Tile* tile, int x, int y)
 {
-	mMatrix[x][y] = tile;
+	std::vector< Tile *> * v = mMatrix->at(x);
+	v->insert(v->begin() + y, tile);
 }
 
 void World::setEntities(std::vector <Entity*> entities)
