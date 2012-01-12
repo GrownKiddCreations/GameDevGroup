@@ -3,6 +3,8 @@
 
 #include "TileType.h"
 
+const int TILE_SIZE = 20;
+
 class Tile
 {
 
