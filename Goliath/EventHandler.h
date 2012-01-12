@@ -27,6 +27,5 @@ class EventHandler : public EventHandlerBase
 		Game *mpGame;
 
         void WindowToGameCoordinates(int &x, int &y);
-        void swapVerticleOrigin(int &x);
 };
 

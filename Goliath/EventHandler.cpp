@@ -36,7 +36,7 @@ void EventHandler::SetGame(Game *game)
 
 
     Entity *test = mpGame->entityList[0];
-    swapVerticleOrigin(y);
+    WindowToGameCoordinates(x,y);
     //test->setPosition(relX, relY);
     test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));
     std::cout << "MMove (" << x << "," << y << ")" << std::endl;
@@ -85,18 +85,9 @@ void EventHandler::WindowToGameCoordinates(int &x, int &y)
     int gameX, gameY;
 
     /* considering viewport at origin (0,0) */
-    gameX = (x/Game::WINDOW_WIDTH) * Game::VIEWPORT_WIDTH;
-    gameY = ((Game::WINDOW_HEIGHT - y)/Game::WINDOW_HEIGHT) * Game::VIEWPORT_HEIGHT;
+    gameX = ((float) x/Game::WINDOW_WIDTH) * Game::VIEWPORT_WIDTH;
+    gameY = ((float) (Game::WINDOW_HEIGHT - y)/Game::WINDOW_HEIGHT) * Game::VIEWPORT_HEIGHT;
 	
     x = gameX;
-    y = gameY;
-}
-
-void EventHandler::swapVerticleOrigin(int &y)
-{
-    int gameY;
-
-    gameY = (Game::WINDOW_HEIGHT - y);
-
     y = gameY;
 }
