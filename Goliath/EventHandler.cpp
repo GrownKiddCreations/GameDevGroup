@@ -33,11 +33,10 @@ void EventHandler::SetGame(Game *game)
 /* virtual */ void EventHandler::OnMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle)
 {
-
-
-    Entity *test = mpGame->entityList[0];
+    //TODO move this code to keyboard control
+    /*Entity *test = mpGame->entityList[0];
     WindowToGameCoordinates(x,y);
-    test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));
+    test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));*/
     std::cout << "MMove (" << x << "," << y << ")" << std::endl;
 
     std::cout << "w2g MMove (" << x << "," << y << ")" << std::endl;
