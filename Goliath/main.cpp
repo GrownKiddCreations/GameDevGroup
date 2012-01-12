@@ -27,7 +27,8 @@ int main(int argc, char** argv)
 		}
 	}
 
-	theWorld->setTile(new Tile(dirt), 3, 3);
+	theWorld->setTile(new Tile(dirt), 10, 3);
+	std::cout << theWorld->getTile(1,1)->getType()->getName() << std::endl;
 
 	theGame.setWorld(theWorld);
 	//delete theWorld;
