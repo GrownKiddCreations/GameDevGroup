@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Vector2.h"
 
+//TODO create an initializer for a list of elements/entities
+
 Game::Game(void) :
         mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
                 Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT), mEventHandler()

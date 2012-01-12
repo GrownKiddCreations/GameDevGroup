@@ -37,7 +37,6 @@ void EventHandler::SetGame(Game *game)
 
     Entity *test = mpGame->entityList[0];
     WindowToGameCoordinates(x,y);
-    //test->setPosition(relX, relY);
     test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));
     std::cout << "MMove (" << x << "," << y << ")" << std::endl;
 

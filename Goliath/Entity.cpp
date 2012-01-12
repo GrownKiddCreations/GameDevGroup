@@ -94,3 +94,23 @@ void Entity::setSpeed(Vector2 speed)
 {
     mSpeed2D = speed;
 }
+
+int Entity::top()
+{
+    return mPositionY + mHeight;
+}
+
+int Entity::right()
+{
+    return mPositionX + mWidth;
+}
+
+int Entity::bottom()
+{
+    return mPositionY;
+}
+
+int Entity::left()
+{
+    return mPositionX;
+}

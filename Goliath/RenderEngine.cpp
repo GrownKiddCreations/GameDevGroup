@@ -68,14 +68,17 @@ void RenderEngine::initCamera()
 
 void RenderEngine::renderEntity(Entity *being)
 {
-    glColor3f(0.5, 0.5, 0.5);
 
-    glBegin(GL_LINE_LOOP);
+    glColor3f(1, 1, 1);
+    glRectf(being->getX(), being->getY(), being->getX()+being->getWidth(), being->getY()+being->getHeight());
+    //glColor3f(0.5, 0.5, 0.5);
+
+    /*glBegin(GL_LINE_LOOP);
     glVertex2f(being->getX(), being->getY());
     glVertex2f(being->getX() + being->getWidth(), being->getY());
     glVertex2f(being->getX() + being->getWidth(), being->getY() + being->getHeight());
     glVertex2f(being->getX(), being->getY() + being->getHeight());
-    glEnd();
+    glEnd();*/
 }
 
 void RenderEngine::renderWorld(World *world)

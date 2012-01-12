@@ -31,6 +31,11 @@ class Entity
 
         bool loadTexture2d();
 
+        int top();
+        int bottom();
+        int right();
+        int left();
+
     private:
 
         std::string mTextureImgName;
