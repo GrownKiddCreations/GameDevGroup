@@ -68,7 +68,7 @@ void RenderEngine::initCamera()
 
 void RenderEngine::renderEntity(Entity *being)
 {
-    glColor3f(1, 1, 1);
+    glColor3f(0.5, 0.5, 0.5);
 
     glBegin(GL_LINE_LOOP);
     glVertex2f(being->getX(), being->getY());

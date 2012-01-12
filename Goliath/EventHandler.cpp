@@ -33,12 +33,17 @@ void EventHandler::SetGame(Game *game)
 /* virtual */ void EventHandler::OnMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle)
 {
-    WindowToGameCoordinates(x,y);
+
 
     Entity *test = mpGame->entityList[0];
-    test->setPosition(x,y);
+    swapVerticleOrigin(y);
+    //test->setPosition(relX, relY);
+    test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));
     std::cout << "MMove (" << x << "," << y << ")" << std::endl;
-    std::cout << "MMove rel (" << relX << "," << relY << ")" << std::endl;
+
+    std::cout << "w2g MMove (" << x << "," << y << ")" << std::endl;
+
+    //std::cout << "MMove rel (" << relX << "," << relY << ")" << std::endl;
     if (Left)
     {
         std::cout << "MMove Left Hold" << std::endl;
@@ -84,5 +89,14 @@ void EventHandler::WindowToGameCoordinates(int &x, int &y)
     gameY = ((Game::WINDOW_HEIGHT - y)/Game::WINDOW_HEIGHT) * Game::VIEWPORT_HEIGHT;
 	
     x = gameX;
+    y = gameY;
+}
+
+void EventHandler::swapVerticleOrigin(int &y)
+{
+    int gameY;
+
+    gameY = (Game::WINDOW_HEIGHT - y);
+
     y = gameY;
 }

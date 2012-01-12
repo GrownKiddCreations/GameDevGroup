@@ -3,7 +3,7 @@
 
 #include "Vector2.h"
 #include <string>
-#include "FreeImage.h"
+//#include "FreeImage.h"
 
 class Entity
 {

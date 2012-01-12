@@ -84,6 +84,9 @@ void Game::onRender()
     if (mCurrentWorld != NULL)
 		mRenderEngine.renderWorld(mCurrentWorld);
 
+    if (mCurrentWorld->getEntities().empty() != true)
+        mRenderEngine.renderEntity(mCurrentWorld->getEntities().front());
+
     SDL_GL_SwapBuffers();
 }
 
