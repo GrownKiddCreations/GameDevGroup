@@ -24,7 +24,7 @@ class World
 	private:
 		int mWidth;
 		int mHeight;
-		Tile*** mMatrix;
+		std::vector< std::vector< Tile* > *> *mMatrix;		
 		std::vector <Entity*> mEntities;
 	
 	friend class RenderEngine;
