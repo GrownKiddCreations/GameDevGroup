@@ -11,11 +11,11 @@ class RenderEngine
             int viewportWidth, int viewportHeight);
 		~RenderEngine(void);
         
-        bool InitGraphics();
-		void InitCamera();
-        void RenderWorld(Entity *being);
+        bool initGraphics();
+		void initCamera();
+        void renderEntity(Entity *being);
         void RenderEntities();
-        void RenderWorld2(World *world); // FIXME
+        void renderWorld(World *world); // FIXME
         
     private:
         int mWindowWidth, mWindowHeight;

@@ -1,5 +1,6 @@
 #include "World.h"
 
+
 World::World(int width, int height)
 {
     mWidth = width;
@@ -47,4 +48,14 @@ Tile* World::getTile(int x, int y)
 void World::setTile(Tile* tile, int x, int y)
 {
 	mMatrix[x][y] = tile;
+}
+
+void World::setEntities(std::vector <Entity*> entities)
+{
+    mEntities = entities;
+}
+
+std::vector <Entity*> World::getEntities()
+{
+    return mEntities;
 }

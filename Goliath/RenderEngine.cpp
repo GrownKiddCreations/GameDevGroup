@@ -32,7 +32,7 @@ RenderEngine::~RenderEngine(void)
 {
 }
 
-bool RenderEngine::InitGraphics()
+bool RenderEngine::initGraphics()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         return false;
@@ -49,7 +49,7 @@ bool RenderEngine::InitGraphics()
     return true;
 }
 
-void RenderEngine::InitCamera()
+void RenderEngine::initCamera()
 {
     glClearColor(0, 0, 0, 0);
     glViewport(0, 0, mWindowWidth, mWindowHeight);
@@ -57,7 +57,7 @@ void RenderEngine::InitCamera()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    /* If left or bottom changes from 0, GoliathEventHandler::WindowToGameCoordinates needs
+    /* If left or bottom changes from 0, EventHandler::WindowToGameCoordinates needs
      to change -> viewport at origin (0,0) */
     glOrtho(0, mViewportWidth, 0, mViewportHeight, 1, -1);//SDL works with a top-left origin so top and bottom must be swapped
 
@@ -66,19 +66,22 @@ void RenderEngine::InitCamera()
     glLoadIdentity();
 }
 
-void RenderEngine::RenderWorld(Entity *being)
+void RenderEngine::renderEntity(Entity *being)
 {
-    glColor3f(1, 1, 1);
 
-    glBegin(GL_LINE_LOOP);
+    glColor3f(1, 1, 1);
+    glRectf(being->getX(), being->getY(), being->getX()+being->getWidth(), being->getY()+being->getHeight());
+    //glColor3f(0.5, 0.5, 0.5);
+
+    /*glBegin(GL_LINE_LOOP);
     glVertex2f(being->getX(), being->getY());
     glVertex2f(being->getX() + being->getWidth(), being->getY());
     glVertex2f(being->getX() + being->getWidth(), being->getY() + being->getHeight());
     glVertex2f(being->getX(), being->getY() + being->getHeight());
-    glEnd();
+    glEnd();*/
 }
 
-void RenderEngine::RenderWorld2(World *world)
+void RenderEngine::renderWorld(World *world)
 {
 	int TILE_SIZE = 20;
 	int X_OFFSET = 20;

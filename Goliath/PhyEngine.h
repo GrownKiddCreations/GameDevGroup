@@ -8,6 +8,8 @@ class PhyEngine
         PhyEngine(void);
         ~PhyEngine(void);
 
+        void moveEntity(Entity*);
+
     private:
         
 };
