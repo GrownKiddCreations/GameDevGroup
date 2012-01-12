@@ -70,7 +70,7 @@ void RenderEngine::renderEntity(Entity *being)
 {
 
     glColor3f(1, 1, 1);
-    glRectf(being->getX(), being->getY(), being->getX()+being->getWidth(), being->getY()+being->getHeight());
+    //glRectf(being->getX(), being->getY(), being->getX()+being->getWidth(), being->getY()+being->getHeight());
     //glColor3f(0.5, 0.5, 0.5);
 
     /*glBegin(GL_LINE_LOOP);
@@ -83,16 +83,14 @@ void RenderEngine::renderEntity(Entity *being)
 
 void RenderEngine::renderWorld(World *world)
 {
-	int TILE_SIZE = 20;
 	int X_OFFSET = 20;
 	int Y_OFFSET = 20;
-	
-	Tile*** matrix = world->mMatrix;
-	for (int i = 0; i < world->getWidth(); ++i)
+
+	for (int i = 0; i < world->getWidth(); i++)
 	{
-		for (int j = 0; j < world->getHeight(); ++j)
+		for (int j = 0; j < world->getHeight(); j++)
 		{
-			Tile* currentTile = matrix[i][j];
+			Tile* currentTile = world->getTile(i, j);
 			if (currentTile != NULL)
 			{
 				if (!currentTile->getType()->isPassable())
@@ -104,6 +102,7 @@ void RenderEngine::renderWorld(World *world)
 		}	
 	}
 	
+	// show grid
 	for (int i = 0; i < world->getWidth(); ++i)
 	{
 		for (int j = 0; j < world->getHeight(); ++j)
