@@ -1,11 +1,14 @@
 
 #include "Game.h"
 
-#include <iostream>
 #include "Vector2.h"
 
-//TODO create an initializer for a list of elements/entities
+#include <gl/glew.h>
+#include "FreeImage.h"
 
+#include <iostream>
+
+//TODO create an initializer for a list of elements/entities
 Game::Game(void) :
         mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
                 Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT), mEventHandler()
@@ -22,6 +25,9 @@ Game::~Game(void)
 
 bool Game::onInit()
 {
+    std::cout << "Initializing FreeImage..." << std::endl;
+	FreeImage_Initialise(1);
+
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
 
@@ -32,6 +38,24 @@ bool Game::onInit()
     /* Initialize camera projection */
     mRenderEngine.initCamera();
 
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+        std::cout << "Error: " << glewGetErrorString(err) << std::endl;
+    }
+
+    std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
+    
+    if (glewIsSupported("GL_VERSION_1_4  GL_ARB_point_sprite")) 
+    {
+        std::cout << "Great, we have OpenGL 1.4 + point sprites." << std::endl;
+    }
+
+    if (glewIsSupported("GL_VERSION_3_3")) 
+    {
+        std::cout << "Great, we have OpenGL 3.3!" << std::endl;
+    }
+    
     std::cout << "OpenGL version: " << (char*) glGetString(GL_VERSION) << std::endl;
 
     return true;

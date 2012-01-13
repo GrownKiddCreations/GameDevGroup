@@ -10,13 +10,12 @@ int main(int argc, char** argv)
 {
 	cout << "Initializing.." << endl;
 
-	TileType *air = new TileType("air", true);
-	TileType *dirt = new TileType("dirt", false);
-
 	Game theGame;
 	int WORLD_WIDTH = 30;
 	int WORLD_HEIGHT = 22;
 
+	TileType *air = new TileType("air", true);
+	TileType *dirt = new TileType("dirt", false);
 	World *theWorld =  new World(WORLD_WIDTH, WORLD_HEIGHT);
 	
 	for (int i = 0; i < theWorld->getWidth(); ++i)
@@ -30,8 +29,7 @@ int main(int argc, char** argv)
 		}
 	}
 
-	theWorld->setTile(new Tile(dirt), 0, 0);
-	std::cout << theWorld->getTile(0,0)->getType()->getName() << std::endl;
+	theWorld->setTile(new Tile(dirt), 3, 3);
 
 	theGame.setWorld(theWorld);
 	//delete theWorld;

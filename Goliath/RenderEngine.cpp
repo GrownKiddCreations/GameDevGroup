@@ -96,7 +96,7 @@ void RenderEngine::renderWorld(World *world)
 				if (!currentTile->getType()->isPassable())
 				{
 					glColor3f(1, 1, 1);
-					glRectf(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET, TILE_SIZE, TILE_SIZE);
+					glRecti(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET, TILE_SIZE, TILE_SIZE);
 				}
 			}
 		}	
@@ -109,10 +109,10 @@ void RenderEngine::renderWorld(World *world)
 		{
 			glColor3f(0.5, 0.5, 0.5);	
 			glBegin(GL_LINE_LOOP);
-			glVertex2f(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
-			glVertex2f(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
-			glVertex2f(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
-			glVertex2f(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
+			glVertex2i(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
+			glVertex2i(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
+			glVertex2i(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
+			glVertex2i(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
 			glEnd();
 		}	
 	}

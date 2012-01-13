@@ -26,6 +26,6 @@ class EventHandler : public EventHandlerBase
 	private:
 		Game *mpGame;
 
-        void WindowToGameCoordinates(int &x, int &y);
+        void windowToGameCoordinates(int &x, int &y);
 };
 

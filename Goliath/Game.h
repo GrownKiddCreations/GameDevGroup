@@ -5,7 +5,6 @@
 #endif
 
 #include "SDL/SDL.h"
-#include <GL/glut.h>
 
 #include "PhyEngine.h"
 #include "RenderEngine.h"

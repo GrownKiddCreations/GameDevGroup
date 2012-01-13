@@ -33,10 +33,12 @@ void EventHandler::SetGame(Game *game)
 /* virtual */ void EventHandler::OnMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle)
 {
+
     //TODO move this code to keyboard control
     /*Entity *test = mpGame->entityList[0];
-    WindowToGameCoordinates(x,y);
+    windowToGameCoordinates(x,y);
     test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));*/
+
     std::cout << "MMove (" << x << "," << y << ")" << std::endl;
 
     std::cout << "w2g MMove (" << x << "," << y << ")" << std::endl;
@@ -78,7 +80,7 @@ void EventHandler::SetGame(Game *game)
     std::cout << "RBUp (" << x << "," << y << ")" << std::endl;
 }
 
-void EventHandler::WindowToGameCoordinates(int &x, int &y)
+void EventHandler::windowToGameCoordinates(int &x, int &y)
 {
     int gameX, gameY;
 
