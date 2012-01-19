@@ -8,9 +8,10 @@
 #include "Entity.h"
 #include "Vector2.h"
 
-Entity::Entity(std::string filename, Vector2 size, Vector2 position, bool passable)
+Entity::Entity(std::string filename, Vector2 size, Vector2 position, bool passable):
+    mTexture(filename)
 {
-    mTextureImgName = filename;
+    mTexture.load(false);
     mDimension2D = size;
     mWidth = size.x;
     mHeight = size.y;
@@ -113,4 +114,9 @@ int Entity::bottom()
 int Entity::left()
 {
     return mPositionX;
+}
+
+Texture* Entity::getTexture()
+{
+    return &mTexture;
 }

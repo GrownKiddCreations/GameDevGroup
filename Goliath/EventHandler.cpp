@@ -39,9 +39,9 @@ void EventHandler::SetGame(Game *game)
     windowToGameCoordinates(x,y);
     test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));*/
 
-    std::cout << "MMove (" << x << "," << y << ")" << std::endl;
+    //std::cout << "MMove (" << x << "," << y << ")" << std::endl;
 
-    std::cout << "w2g MMove (" << x << "," << y << ")" << std::endl;
+    //std::cout << "w2g MMove (" << x << "," << y << ")" << std::endl;
 
     //std::cout << "MMove rel (" << relX << "," << relY << ")" << std::endl;
     if (Left)

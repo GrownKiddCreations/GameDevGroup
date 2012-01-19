@@ -13,7 +13,7 @@ class Texture
         ~Texture(void);
 
         void load(bool);
-        void bind(int);
+        void bind();
 
 
     private:

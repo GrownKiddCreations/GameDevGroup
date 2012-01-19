@@ -1,6 +1,7 @@
 #ifndef _ENTITIES_H
 #define _ENTITIES_H
 
+#include "Texture.h"
 #include "Vector2.h"
 #include <string>
 //#include "FreeImage.h"
@@ -29,16 +30,15 @@ class Entity
         void setPosition(Vector2);
         void setPosition(int,int);
 
-        bool loadTexture2d();
-
         int top();
         int bottom();
         int right();
         int left();
 
+        Texture* getTexture();
+
     private:
 
-        std::string mTextureImgName;
         int mWidth, mHeight;
         int mPositionX, mPositionY;
         int mSpeedX, mSpeedY;
@@ -48,5 +48,7 @@ class Entity
         Vector2 mDimension2D;
         Vector2 mPosition2D;
         Vector2 mSpeed2D;
+
+        Texture mTexture;
 };
 #endif //_ENTITIES_H

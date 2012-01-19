@@ -70,15 +70,16 @@ void RenderEngine::renderEntity(Entity *being)
 {
 
     glColor3f(1, 1, 1);
-    //glRectf(being->getX(), being->getY(), being->getX()+being->getWidth(), being->getY()+being->getHeight());
-    //glColor3f(0.5, 0.5, 0.5);
-
-    /*glBegin(GL_LINE_LOOP);
-    glVertex2f(being->getX(), being->getY());
-    glVertex2f(being->getX() + being->getWidth(), being->getY());
-    glVertex2f(being->getX() + being->getWidth(), being->getY() + being->getHeight());
-    glVertex2f(being->getX(), being->getY() + being->getHeight());
-    glEnd();*/
+    
+    /* Not a good idea to load the texture at every loop */
+    being->getTexture()->load(false);
+    being->getTexture()->bind();
+    glBegin(GL_QUADS);
+    glTexCoord2d(0,0); glVertex2d(being->getX(), being->getY());
+    glTexCoord2d(1,0); glVertex2d(being->getX() + being->getWidth(), being->getY());
+    glTexCoord2d(1,1); glVertex2d(being->getX() + being->getWidth(), being->getY() + being->getHeight());
+    glTexCoord2d(0,1); glVertex2d(being->getX(), being->getY() + being->getHeight());
+    glEnd();
 }
 
 void RenderEngine::renderWorld(World *world)

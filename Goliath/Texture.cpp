@@ -14,7 +14,7 @@ Texture::Texture(void)
 {
 }
 
-Texture::Texture(std::string filename)
+Texture::Texture(std::string filename) : mFilename(filename)
 {
 
 }
@@ -30,7 +30,7 @@ void Texture::load(bool generateMipmaps)
 
 	imgFormat = FreeImage_GetFileType(mFilename.c_str(), 0);
 
-	std::cout << "File format: " << imgFormat << std::endl;
+	//std::cout << "File format: " << imgFormat << std::endl;
 
 	if (FreeImage_FIFSupportsReading(imgFormat)) // Check if the plugin has reading capabilities and load the file
 		dib = FreeImage_Load(imgFormat, mFilename.c_str());
@@ -46,18 +46,26 @@ void Texture::load(bool generateMipmaps)
     if (!bDataPointer || !mWidth || !mHeight)
         std::cout << "Error loading texture files!" << std::endl;
 
-    // Generate an OpenGL texture ID for this texture
+    // Generate and bind ID for this texture
     glGenTextures(1, &mId);
     glBindTexture(GL_TEXTURE_2D, mId); 
 
     int format = mBitsPerPixel == 24 ? GL_BGR_EXT : mBitsPerPixel == 8 ? GL_LUMINANCE : 0; 
     int iInternalFormat = mBitsPerPixel == 24 ? GL_RGB : GL_DEPTH_COMPONENT;  
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, format, GL_UNSIGNED_BYTE, bDataPointer); 
-
     if(generateMipmaps)
-      glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 
-   FreeImage_Unload(dib); 
-   
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, format, GL_UNSIGNED_BYTE, bDataPointer); 
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // Linear Filtering
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // Linear Filtering
+
+    //std::cout << "texture generated " << mId << std::endl;
+    FreeImage_Unload(dib);
+}
+
+void Texture::bind()
+{
+    //std::cout << "binding texture " << mId << std::endl;
+    glBindTexture(GL_TEXTURE_2D, mId);
 }

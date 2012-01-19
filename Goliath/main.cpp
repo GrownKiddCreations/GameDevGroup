@@ -35,8 +35,8 @@ int main(int argc, char** argv)
 	//delete theWorld;
 
     Vector2 dudeDim(150,150);
-    Vector2 dudePos(WORLD_WIDTH/2, WORLD_HEIGHT/2);
-    Entity *test = new Entity("img/afroDude.png", dudeDim, dudePos, false);
+    Vector2 dudePos(300, 300);
+    Entity *test = new Entity("img/images.jpg", dudeDim, dudePos, false);
     theGame.entityList.push_back(test);
 
     theWorld->setEntities(theGame.entityList);
