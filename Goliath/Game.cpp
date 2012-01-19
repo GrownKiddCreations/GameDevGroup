@@ -3,8 +3,8 @@
 
 #include "Vector2.h"
 
-#include <gl/glew.h>
-#include "FreeImage.h"
+#include <GL/glew.h>
+#include "lib/FreeImage.h"
 
 #include <iostream>
 
@@ -25,8 +25,8 @@ Game::~Game(void)
 
 bool Game::onInit()
 {
-    std::cout << "Initializing FreeImage..." << std::endl;
-	FreeImage_Initialise(1);
+    //std::cout << "Initializing FreeImage..." << std::endl;
+	//FreeImage_Initialise(1);
 
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
