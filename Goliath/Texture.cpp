@@ -5,7 +5,7 @@
 #include <Windows.h>
 #endif
 #include "FreeImage.h"
-#include <gl/glew.h>
+#include <GL/glew.h>//"GL" must be in caps for linux
 
 #include <iostream>
 
