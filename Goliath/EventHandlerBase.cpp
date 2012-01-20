@@ -12,7 +12,7 @@ EventHandlerBase::~EventHandlerBase(void)
 {
 }
 
-void EventHandlerBase::OnEvent(SDL_Event *event)
+void EventHandlerBase::onEvent(SDL_Event *event)
 {
     switch (event->type)
     {
@@ -23,44 +23,44 @@ void EventHandlerBase::OnEvent(SDL_Event *event)
 					case SDL_APPMOUSEFOCUS: 
 						{
 							if (event->active.gain)
-								OnMouseFocus();
+								onMouseFocus();
 							else
-								OnMouseBlur();
+								onMouseBlur();
 							break;
 						}
 					case SDL_APPINPUTFOCUS:
 						{
 							if (event->active.gain)
-								OnInputFocus();
+								onInputFocus();
 							else
-								OnInputBlur();
+								onInputBlur();
 							break;
 						}
 					case SDL_APPACTIVE:
 						{
 							if (event->active.gain)
-								OnRestore();
+								onRestore();
 							else
-								OnMinimize();
+								onMinimize();
 							break;
 						}
 				}
 			}
         case SDL_KEYDOWN:
 			{
-				OnKeyDown(event->key.keysym.sym,event->key.keysym.mod,event->key.keysym.unicode);
+				onKeyDown(event->key.keysym.sym,event->key.keysym.mod,event->key.keysym.unicode);
 				break;
 			}
  
         case SDL_KEYUP:
 			{
-				OnKeyUp(event->key.keysym.sym,event->key.keysym.mod,event->key.keysym.unicode);
+				onKeyUp(event->key.keysym.sym,event->key.keysym.mod,event->key.keysym.unicode);
 				break;
 			}
  
 		case SDL_MOUSEMOTION:
 			{
-				OnMouseMove(event->motion.x,event->motion.y,event->motion.xrel,
+				onMouseMove(event->motion.x,event->motion.y,event->motion.xrel,
 						event->motion.yrel,(event->motion.state & SDL_BUTTON(SDL_BUTTON_LEFT)) != 0,
 						(event->motion.state & SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0,
 						(event->motion.state & SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0);
@@ -73,17 +73,17 @@ void EventHandlerBase::OnEvent(SDL_Event *event)
 				{
 					case SDL_BUTTON_LEFT:
 						{
-							OnLButtonUp(event->button.x,event->button.y);
+							onLButtonUp(event->button.x,event->button.y);
 							break;
 						}
 					case SDL_BUTTON_RIGHT:
 						{
-							OnRButtonUp(event->button.x,event->button.y);
+							onRButtonUp(event->button.x,event->button.y);
 							break;
 						}
 					case SDL_BUTTON_MIDDLE:
 						{
-							OnMButtonUp(event->button.x,event->button.y);
+							onMButtonUp(event->button.x,event->button.y);
 							break;
 						}
 				}
@@ -95,17 +95,17 @@ void EventHandlerBase::OnEvent(SDL_Event *event)
 				{
 					case SDL_BUTTON_LEFT:
 						{
-							OnLButtonDown(event->button.x,event->button.y);
+							onLButtonDown(event->button.x,event->button.y);
 							break;
 						}
 					case SDL_BUTTON_RIGHT:
 						{
-							OnRButtonDown(event->button.x,event->button.y);
+							onRButtonDown(event->button.x,event->button.y);
 							break;
 						}
 					case SDL_BUTTON_MIDDLE:
 						{
-							OnMButtonDown(event->button.x,event->button.y);
+							onMButtonDown(event->button.x,event->button.y);
 							break;
 						}
 				}
@@ -113,7 +113,7 @@ void EventHandlerBase::OnEvent(SDL_Event *event)
 			}
 		case SDL_QUIT:
 			{
-				OnExit();
+				onExit();
 				break;
 			}
 
@@ -125,19 +125,19 @@ void EventHandlerBase::OnEvent(SDL_Event *event)
 
 		case SDL_VIDEORESIZE:
 			{
-				OnResize(event->resize.w,event->resize.h);
+				onResize(event->resize.w,event->resize.h);
 				break;
 			}
 
 		case SDL_VIDEOEXPOSE:
 			{
-				OnExpose();
+				onExpose();
 				break;
 			}
 
 		default:
 			{
-				OnUser(event->user.type,event->user.code,event->user.data1,event->user.data2);
+				onUser(event->user.type,event->user.code,event->user.data1,event->user.data2);
 				break;
 			}
 	}

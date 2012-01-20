@@ -12,15 +12,17 @@ class EventHandler : public EventHandlerBase
 		~EventHandler(void);
 
 		void SetGame(Game *game);
-		void OnExit();
-        void OnMouseMove(int x, int y, int relX, int relY,
+		void onExit();
+        void onMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle);
-        void OnLButtonDown(int x, int y);
-	    void OnLButtonUp(int x, int y);
-	    void OnRButtonDown(int x, int y);
-	    void OnRButtonUp(int x, int y);
-        void OnMButtonDown(int x, int y) { }
-        void OnMButtonUp(int x, int y) { }
+        void onLButtonDown(int x, int y);
+	    void onLButtonUp(int x, int y);
+	    void onRButtonDown(int x, int y);
+	    void onRButtonUp(int x, int y);/*
+        void onMButtonDown(int x, int y);
+        void onMButtonUp(int x, int y);*/
+        void onKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
+        void onKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode);
 
 
 	private:

@@ -9,28 +9,28 @@ public:
 	EventHandlerBase(void);
 	~EventHandlerBase(void);
 
-	virtual void OnEvent(SDL_Event *event);
-	virtual void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) { }
-	virtual void OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) { }
-	virtual void OnMouseFocus() { }
-	virtual void OnMouseBlur() { }
-	virtual void OnMouseMove(int mX, int mY, int relX, int relY,
+	virtual void onEvent(SDL_Event *event);
+	virtual void onKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) { }
+	virtual void onKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) { }
+	virtual void onMouseFocus() { }
+	virtual void onMouseBlur() { }
+	virtual void onMouseMove(int mX, int mY, int relX, int relY,
 		bool Left,bool Right,bool Middle) { }
-	virtual void OnMouseWheel(bool Up, bool Down) { }    //Not implemented
-	virtual void OnInputFocus() { }
-	virtual void OnInputBlur() { }
-	virtual void OnResize(int w,int h) { }
-	virtual void OnRestore() { }
-	virtual void OnMinimize() { }
-	virtual void OnExpose() { }
-	virtual void OnExit() { }
-	virtual void OnUser(Uint8 type, int code, void* data1, void* data2) { }
-	virtual void OnLButtonDown(int x, int y) { }
-	virtual void OnLButtonUp(int x, int y) { }
-	virtual void OnRButtonDown(int x, int y) { }
-	virtual void OnRButtonUp(int x, int y) { }
-	virtual void OnMButtonDown(int x, int y) { }
-	virtual void OnMButtonUp(int x, int y) { }
+	virtual void onMouseWheel(bool Up, bool Down) { }    //Not implemented
+	virtual void onInputFocus() { }
+	virtual void onInputBlur() { }
+	virtual void onResize(int w,int h) { }
+	virtual void onRestore() { }
+	virtual void onMinimize() { }
+	virtual void onExpose() { }
+	virtual void onExit() { }
+	virtual void onUser(Uint8 type, int code, void* data1, void* data2) { }
+	virtual void onLButtonDown(int x, int y) { }
+	virtual void onLButtonUp(int x, int y) { }
+	virtual void onRButtonDown(int x, int y) { }
+	virtual void onRButtonUp(int x, int y) { }
+	virtual void onMButtonDown(int x, int y) { }
+	virtual void onMButtonUp(int x, int y) { }
 
 private:
 

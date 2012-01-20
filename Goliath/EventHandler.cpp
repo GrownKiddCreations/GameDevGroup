@@ -25,20 +25,14 @@ void EventHandler::SetGame(Game *game)
 		mpGame = game;
 }
 
-/* virtual */ void EventHandler::OnExit()
+/* virtual */ void EventHandler::onExit()
 {
 	this->mpGame->Quit();    
 }
 
-/* virtual */ void EventHandler::OnMouseMove(int x, int y, int relX, int relY,
+/* virtual */ void EventHandler::onMouseMove(int x, int y, int relX, int relY,
             bool Left,bool Right,bool Middle)
 {
-
-    //TODO move this code to keyboard control
-    /*Entity *test = mpGame->entityList[0];
-    windowToGameCoordinates(x,y);
-    test->setPosition(x-(test->getWidth()/2), y-(test->getHeight()/2));*/
-
     //std::cout << "MMove (" << x << "," << y << ")" << std::endl;
 
     //std::cout << "w2g MMove (" << x << "," << y << ")" << std::endl;
@@ -60,24 +54,58 @@ void EventHandler::SetGame(Game *game)
     }
 }
 
-/* virtual */ void EventHandler::OnLButtonDown(int x, int y)
+/* virtual */ void EventHandler::onLButtonDown(int x, int y)
 {
     std::cout << "LBDown (" << x << "," << y << ")" << std::endl;    
 }
 
-/* virtual */ void EventHandler::OnLButtonUp(int x, int y)
+/* virtual */ void EventHandler::onLButtonUp(int x, int y)
 {
     std::cout << "LBUp (" << x << "," << y << ")" << std::endl;
 }
 
-/* virtual */ void EventHandler::OnRButtonDown(int x, int y)
+/* virtual */ void EventHandler::onRButtonDown(int x, int y)
 {
     std::cout << "RBDown (" << x << "," << y << ")" << std::endl;
 }
 
-/* virtual */ void EventHandler::OnRButtonUp(int x, int y)
+/* virtual */ void EventHandler::onRButtonUp(int x, int y)
 {
     std::cout << "RBUp (" << x << "," << y << ")" << std::endl;
+}
+
+/* virtual */ void EventHandler::onKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
+{
+    Entity *test = mpGame->entityList[0];
+    int x, y;
+    x = test->getX();
+    y = test->getY();
+    switch (sym)
+    {
+    case SDLK_LEFT: //LEFT ARROW
+        windowToGameCoordinates(x, y);
+        test->setPosition(x--, y);
+        break;
+    case SDLK_RIGHT:
+        windowToGameCoordinates(x, y);
+        test->setPosition(x++, y);
+        break;
+    case SDLK_UP:
+        windowToGameCoordinates(x, y);
+        test->setPosition(x, y++);
+        break;
+    case SDLK_DOWN:
+        windowToGameCoordinates(x, y);
+        test->setPosition(x, y--);
+        break;
+    default:
+        break;
+    }
+}
+
+/* virtual */ void EventHandler::onKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode)
+{
+
 }
 
 void EventHandler::windowToGameCoordinates(int &x, int &y)
