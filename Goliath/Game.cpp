@@ -2,6 +2,8 @@
 #include "Vector2.h"
 #include <GL/glew.h>
 #include "lib/FreeImage.h"
+#include "WorldBuilder.h"
+#include "SimpleWorldBuilder.h"
 
 #include <iostream>
 
@@ -12,12 +14,25 @@ Game::Game(void) :
 {
     mIsRunning = false;
     mCurrentWorld = NULL;
+
+    mWorldBuilder = new SimpleWorldBuilder(30, 22);
+
+    setWorld(mWorldBuilder->build());
+
+    Vector2 dudeDim(150,150);
+    Vector2 dudePos(300, 300);
+    Entity *test = new Entity("img/images.jpg", dudeDim, dudePos, false);
+    entityList.push_back(test);
+
+    mCurrentWorld->setEntities(entityList);
 }
 
 Game::~Game(void)
 {
     if (mCurrentWorld != NULL)
         delete mCurrentWorld;
+
+    delete mWorldBuilder;
 }
 
 bool Game::onInit()

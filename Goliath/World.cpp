@@ -1,11 +1,19 @@
 #include "World.h"
 
 
-World::World(int width, int height)
+World::World(int width, int height, std::vector<TileType *> &tileTypes)
 {
     mWidth = width;
 	mHeight = height;
 
+	// copy over tile types
+	std::vector<TileType *>::iterator iter;
+	for (iter=tileTypes.begin() ; iter < tileTypes.end(); iter++)
+	{
+		mTileTypes.push_back(*iter);
+	}
+
+	// build world
 	mMatrix = new std::vector< std::vector< Tile* > *>();
 	for (int i = 0; i < mWidth; ++i)
 	{

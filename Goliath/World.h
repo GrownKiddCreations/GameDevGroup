@@ -8,9 +8,8 @@
 
 class World
 {
-
     public:
-        World(int, int);
+        World(int, int, std::vector<TileType *> &tileTypes);
         ~World();
 
         int getWidth();
@@ -18,12 +17,14 @@ class World
 
         Tile* getTile(int x, int y);
         void setTile(Tile* tile, int x, int y);
+
         std::vector<Entity*> getEntities();
         void setEntities(std::vector<Entity*> entities);
 
     private:
         int mWidth;
         int mHeight;
+        std::vector<TileType *> mTileTypes;
         std::vector<std::vector<Tile*> *> *mMatrix;
         std::vector<Entity*> mEntities;
 

@@ -11,6 +11,7 @@
 #include "EventHandler.h"
 #include "FrameControl.h"
 #include "World.h"
+#include "SimpleWorldBuilder.h"
 #include "Entity.h"
 #include <vector>
 
@@ -46,6 +47,8 @@ class Game
         RenderEngine mRenderEngine;
         EventHandler mEventHandler;
         FrameControl mFrameControl;
+
+        WorldBuilder* mWorldBuilder;
         World *mCurrentWorld;
 };
 
