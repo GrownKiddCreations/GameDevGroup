@@ -19,12 +19,13 @@ Game::Game(void) :
 
     setWorld(mWorldBuilder->build());
 
-    Vector2 dudeDim(150,150);
+    // FIXME - adding a test entity
+    Vector2 dudeDim(60,60);
     Vector2 dudePos(300, 300);
     Entity *test = new Entity("img/images.jpg", dudeDim, dudePos, false);
     entityList.push_back(test);
-
-    mCurrentWorld->setEntities(entityList);
+    mCurrentWorld->addEntity(test);
+    mCurrentWorld->setPlayerEntity(test);
 }
 
 Game::~Game(void)
@@ -123,9 +124,6 @@ void Game::onRender()
 
     if (mCurrentWorld != NULL)
         mRenderEngine.renderWorld(mCurrentWorld);
-
-    if (mCurrentWorld->getEntities().empty() != true)
-        mRenderEngine.renderEntity(mCurrentWorld->getEntities().front());
 
     SDL_GL_SwapBuffers();
 }

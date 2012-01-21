@@ -76,31 +76,50 @@ void EventHandler::SetGame(Game *game)
 
 /* virtual */ void EventHandler::onKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
 {
-    Entity *test = mpGame->entityList[0];
+    Entity *test = mpGame->getWorld()->getPlayerEntity();
     int x, y;
     x = test->getX();
     y = test->getY();
+
     switch (sym)
+        {
+        case SDLK_LEFT: //LEFT ARROW
+            test->setPosition((x - 5), y);
+            break;
+        case SDLK_RIGHT:
+            test->setPosition((x + 5), y);
+            break;
+        case SDLK_UP:
+            test->setPosition(x, (y + 5));
+            break;
+        case SDLK_DOWN:
+            test->setPosition(x, (y - 5));
+            break;
+        default:
+            break;
+        }
+
+    /*switch (sym)
     {
     case SDLK_LEFT: //LEFT ARROW
         windowToGameCoordinates(x, y);
-        test->setPosition(x--, y);
+        test->setPosition((x - 0.1), y);
         break;
     case SDLK_RIGHT:
         windowToGameCoordinates(x, y);
-        test->setPosition(x++, y);
+        test->setPosition((x + 0.1), y);
         break;
     case SDLK_UP:
         windowToGameCoordinates(x, y);
-        test->setPosition(x, y++);
+        test->setPosition(x, (y + 0.1));
         break;
     case SDLK_DOWN:
         windowToGameCoordinates(x, y);
-        test->setPosition(x, y--);
+        test->setPosition(x, (y - 0.1));
         break;
     default:
         break;
-    }
+    }*/
 }
 
 /* virtual */ void EventHandler::onKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode)

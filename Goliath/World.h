@@ -2,6 +2,7 @@
 #define _WORLD_H
 
 #include <vector>
+#include <set>
 
 #include "Tile.h"
 #include "Entity.h"
@@ -18,15 +19,19 @@ class World
         Tile* getTile(int x, int y);
         void setTile(Tile* tile, int x, int y);
 
-        std::vector<Entity*> getEntities();
-        void setEntities(std::vector<Entity*> entities);
+        bool addEntity(Entity *);
+        void removeEntity(Entity *);
+
+        Entity* getPlayerEntity() const;
+        void setPlayerEntity(Entity*); // FIXME: what if the entity is not present?
 
     private:
         int mWidth;
         int mHeight;
+        Entity* mPlayerEntity;
         std::vector<TileType *> mTileTypes;
         std::vector<std::vector<Tile*> *> *mMatrix;
-        std::vector<Entity*> mEntities;
+        std::set<Entity *> mEntitySet;
 
         friend class RenderEngine;
 };

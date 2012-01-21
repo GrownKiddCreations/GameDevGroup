@@ -69,24 +69,22 @@ void RenderEngine::initCamera()
 void RenderEngine::renderEntity(Entity *being)
 {
 
-    glColor3f(1, 1, 1);
+    glColor3f(1, 0, 0);
+    glRectf(being->getX(), being->getY(), being->getX() + being->getWidth(), being->getY() + being->getHeight());
     
     /* Not a good idea to load the texture at every loop */
-    being->getTexture()->load(false);
+    /*being->getTexture()->load(false);
     being->getTexture()->bind();
     glBegin(GL_QUADS);
     glTexCoord2d(0,0); glVertex2d(being->getX(), being->getY());
     glTexCoord2d(1,0); glVertex2d(being->getX() + being->getWidth(), being->getY());
     glTexCoord2d(1,1); glVertex2d(being->getX() + being->getWidth(), being->getY() + being->getHeight());
     glTexCoord2d(0,1); glVertex2d(being->getX(), being->getY() + being->getHeight());
-    glEnd();
+    glEnd();*/
 }
 
 void RenderEngine::renderWorld(World *world)
 {
-	int X_OFFSET = 20;
-	int Y_OFFSET = 20;
-
 	for (int i = 0; i < world->getWidth(); i++)
 	{
 		for (int j = 0; j < world->getHeight(); j++)
@@ -97,24 +95,32 @@ void RenderEngine::renderWorld(World *world)
 				if (!currentTile->getType()->isPassable())
 				{
 					glColor3f(1, 1, 1);
-					glRecti(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET, TILE_SIZE, TILE_SIZE);
+					glRecti(i * TILE_SIZE, j * TILE_SIZE, i * TILE_SIZE + TILE_SIZE, j * TILE_SIZE + TILE_SIZE);
 				}
 			}
 		}	
 	}
 	
-	// show grid
+	// entities
+	std::set<Entity *>::iterator iter;
+		for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
+		{
+			renderEntity(*iter);
+		}
+
+	// grid
 	for (int i = 0; i < world->getWidth(); ++i)
 	{
 		for (int j = 0; j < world->getHeight(); ++j)
 		{
 			glColor3f(0.5, 0.5, 0.5);	
 			glBegin(GL_LINE_LOOP);
-			glVertex2i(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
-			glVertex2i(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + Y_OFFSET);
-			glVertex2i(i * TILE_SIZE + TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
-			glVertex2i(i * TILE_SIZE + X_OFFSET, j * TILE_SIZE + TILE_SIZE + Y_OFFSET);
+			glVertex2i(i * TILE_SIZE, j * TILE_SIZE);
+			glVertex2i(i * TILE_SIZE + TILE_SIZE, j * TILE_SIZE);
+			glVertex2i(i * TILE_SIZE + TILE_SIZE, j * TILE_SIZE + TILE_SIZE);
+			glVertex2i(i * TILE_SIZE, j * TILE_SIZE + TILE_SIZE);
 			glEnd();
 		}	
 	}
+
 }

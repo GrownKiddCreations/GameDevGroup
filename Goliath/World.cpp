@@ -35,6 +35,8 @@ World::~World()
 		delete mMatrix->at(i);
 	}
 	delete mMatrix;
+
+	// TODO: clean entities
 }
 
 int World::getWidth()
@@ -58,12 +60,26 @@ void World::setTile(Tile* tile, int x, int y)
 	v->insert(v->begin() + y, tile);
 }
 
-void World::setEntities(std::vector <Entity*> entities)
+bool World::addEntity(Entity * entity)
 {
-    mEntities = entities;
+	// TODO: check for collisions
+
+	mEntitySet.insert(entity);
+
+	return false;
 }
 
-std::vector <Entity*> World::getEntities()
+void World::removeEntity(Entity *entity)
 {
-    return mEntities;
+	mEntitySet.erase(entity);
+}
+
+Entity* World::getPlayerEntity() const
+{
+	return mPlayerEntity;
+}
+
+void World::setPlayerEntity(Entity* entity)
+{
+	mPlayerEntity = entity;
 }

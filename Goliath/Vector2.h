@@ -14,7 +14,7 @@ struct Vector2
     int y; //can be negative
 
     Vector2();
-    Vector2(int, int);
+    Vector2(float, float);
           
 };
 
