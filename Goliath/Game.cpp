@@ -15,7 +15,7 @@ Game::Game(void) :
     mIsRunning = false;
     mCurrentWorld = NULL;
 
-    mWorldBuilder = new SimpleWorldBuilder(30, 22);
+    mWorldBuilder = new SimpleWorldBuilder(32, 24);
 
     setWorld(mWorldBuilder->build());
 
@@ -26,6 +26,11 @@ Game::Game(void) :
     entityList.push_back(test);
     mCurrentWorld->addEntity(test);
     mCurrentWorld->setPlayerEntity(test);
+
+    upKeyDown = false;
+    leftKeyDown = false;
+    downKeyDown = false;
+    rightKeyDown = false;
 }
 
 Game::~Game(void)
@@ -96,6 +101,44 @@ int Game::onExecute()
         {
             /* Pass event to the handler */
             mEventHandler.onEvent(&event);
+
+            switch (event.type)
+            {
+				case SDL_KEYDOWN:
+				{
+					SDLKey sym = event.key.keysym.sym;
+					SDLMod mod = event.key.keysym.mod;
+					Uint16 unicode = event.key.keysym.unicode;
+
+					switch (sym)
+					{
+					case SDLK_UP: upKeyDown = true; break;
+					case SDLK_LEFT:	leftKeyDown = true; break;
+					case SDLK_DOWN:	downKeyDown = true; break;
+					case SDLK_RIGHT: rightKeyDown = true; break;
+					default: break;
+					}
+
+					break;
+				}
+				case SDL_KEYUP:
+				{
+					SDLKey sym = event.key.keysym.sym;
+					SDLMod mod = event.key.keysym.mod;
+					Uint16 unicode = event.key.keysym.unicode;
+
+					switch (sym)
+					{
+					case SDLK_UP: upKeyDown = false; break;
+					case SDLK_LEFT:	leftKeyDown = false; break;
+					case SDLK_DOWN:	downKeyDown = false; break;
+					case SDLK_RIGHT: rightKeyDown = false; break;
+					default: break;
+					}
+
+					break;
+				}
+            }
         }
 
         /* Updates game data */
@@ -112,6 +155,33 @@ int Game::onExecute()
 
 void Game::onLoop()
 {
+
+	Entity *pc = mCurrentWorld->getPlayerEntity();
+	int x, y;
+
+	x = pc->getX();
+	y = pc->getY();
+
+	const float SPEED = 2.0f;
+
+	if (upKeyDown)
+	{
+		y += SPEED;
+	}
+	if (leftKeyDown)
+	{
+		x -= SPEED;
+	}
+	if (downKeyDown)
+	{
+		y -= SPEED;
+	}
+	if (rightKeyDown)
+	{
+		x += SPEED;
+	}
+
+	pc->setPosition(x, y);
 
 }
 

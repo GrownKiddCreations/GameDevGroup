@@ -50,5 +50,10 @@ class Game
 
         WorldBuilder* mWorldBuilder;
         World *mCurrentWorld;
+
+        bool upKeyDown;
+        bool leftKeyDown;
+        bool downKeyDown;
+        bool rightKeyDown;
 };
 
