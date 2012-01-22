@@ -103,10 +103,10 @@ void RenderEngine::renderWorld(World *world)
 	
 	// entities
 	std::set<Entity *>::iterator iter;
-		for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
-		{
-			renderEntity(*iter);
-		}
+	for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
+	{
+		renderEntity(*iter);
+	}
 
 	// grid
 	for (int i = 0; i < world->getWidth(); ++i)

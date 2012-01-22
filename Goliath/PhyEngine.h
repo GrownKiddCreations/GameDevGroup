@@ -1,19 +1,18 @@
 #pragma once
 
 #include <vector>
-
-#include "Entity.h"
+#include "World.h"
 
 class PhyEngine
 {
     public:
-        PhyEngine(void);
+        PhyEngine();
         ~PhyEngine(void);
 
-        void moveEntity(Entity*);
+        void step(World*);
 
     private:
-        
+
 };
 
 

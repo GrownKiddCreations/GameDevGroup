@@ -9,7 +9,7 @@
 
 //TODO create an initializer for a list of elements/entities
 Game::Game(void) :
-        mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
+			mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
                 Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT), mEventHandler()
 {
     mIsRunning = false;
@@ -27,18 +27,13 @@ Game::Game(void) :
     mCurrentWorld->addEntity(test);
     mCurrentWorld->setPlayerEntity(test);
 
-    upKeyDown = false;
-    leftKeyDown = false;
-    downKeyDown = false;
-    rightKeyDown = false;
+    //mPhyEngine = new PhyEngine(this);
 }
 
 Game::~Game(void)
 {
-    if (mCurrentWorld != NULL)
-        delete mCurrentWorld;
-
-    delete mWorldBuilder;
+	delete mWorldBuilder;
+    delete mCurrentWorld;
 }
 
 bool Game::onInit()
@@ -110,14 +105,7 @@ int Game::onExecute()
 					SDLMod mod = event.key.keysym.mod;
 					Uint16 unicode = event.key.keysym.unicode;
 
-					switch (sym)
-					{
-					case SDLK_UP: upKeyDown = true; break;
-					case SDLK_LEFT:	leftKeyDown = true; break;
-					case SDLK_DOWN:	downKeyDown = true; break;
-					case SDLK_RIGHT: rightKeyDown = true; break;
-					default: break;
-					}
+					mKeyStateMap[sym] = true;
 
 					break;
 				}
@@ -127,14 +115,7 @@ int Game::onExecute()
 					SDLMod mod = event.key.keysym.mod;
 					Uint16 unicode = event.key.keysym.unicode;
 
-					switch (sym)
-					{
-					case SDLK_UP: upKeyDown = false; break;
-					case SDLK_LEFT:	leftKeyDown = false; break;
-					case SDLK_DOWN:	downKeyDown = false; break;
-					case SDLK_RIGHT: rightKeyDown = false; break;
-					default: break;
-					}
+					mKeyStateMap[sym] = false;
 
 					break;
 				}
@@ -157,32 +138,31 @@ void Game::onLoop()
 {
 
 	Entity *pc = mCurrentWorld->getPlayerEntity();
-	int x, y;
-
-	x = pc->getX();
-	y = pc->getY();
+	int x = 0, y = 0;
 
 	const float SPEED = 2.0f;
 
-	if (upKeyDown)
+	if (mKeyStateMap[SDLK_UP])
 	{
 		y += SPEED;
 	}
-	if (leftKeyDown)
+	if (mKeyStateMap[SDLK_LEFT])
 	{
 		x -= SPEED;
 	}
-	if (downKeyDown)
+	if (mKeyStateMap[SDLK_DOWN])
 	{
 		y -= SPEED;
 	}
-	if (rightKeyDown)
+	if (mKeyStateMap[SDLK_RIGHT])
 	{
 		x += SPEED;
 	}
 
-	pc->setPosition(x, y);
+	//pc->setPosition(x, y);
+	pc->setProposedDisplacement(x, y);
 
+	mPhyEngine.step(mCurrentWorld);
 }
 
 void Game::onRender()

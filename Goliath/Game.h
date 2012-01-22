@@ -6,14 +6,15 @@
 
 #include "SDL/SDL.h"
 
-#include "PhyEngine.h"
+#include <vector>
+#include <map>
 #include "RenderEngine.h"
 #include "EventHandler.h"
 #include "FrameControl.h"
+#include "PhyEngine.h"
 #include "World.h"
 #include "SimpleWorldBuilder.h"
 #include "Entity.h"
-#include <vector>
 
 class Game
 {
@@ -51,9 +52,7 @@ class Game
         WorldBuilder* mWorldBuilder;
         World *mCurrentWorld;
 
-        bool upKeyDown;
-        bool leftKeyDown;
-        bool downKeyDown;
-        bool rightKeyDown;
+        std::map<SDLKey, bool> mKeyStateMap;
+
 };
 

@@ -30,6 +30,9 @@ class Entity
         void setPosition(Vector2);
         void setPosition(int,int);
 
+        void setProposedDisplacement(float, float);
+        Vector2 getProposedDisplacement();
+
         int top();
         int bottom();
         int right();
@@ -39,16 +42,20 @@ class Entity
 
     private:
 
-        int mWidth, mHeight;
-        int mPositionX, mPositionY;
-        int mSpeedX, mSpeedY;
+        //int mWidth, mHeight;
+        //int mPositionX, mPositionY;
+        //int mSpeedX, mSpeedY;
         bool mPassable; // for collision detection
 
         //Vector2 attributes
         Vector2 mDimension2D;
         Vector2 mPosition2D;
         Vector2 mSpeed2D;
+        Vector2 mProposedDisplacement2D;
 
         Texture mTexture;
+
+        friend class RenderEngine;
+        friend class PhyEngine;
 };
 #endif //_ENTITIES_H

@@ -10,8 +10,8 @@
 
 struct Vector2
 {
-    int x; //can be positive
-    int y; //can be negative
+    float x; //can be positive
+    float y; //can be negative
 
     Vector2();
     Vector2(float, float);

@@ -34,6 +34,7 @@ class World
         std::set<Entity *> mEntitySet;
 
         friend class RenderEngine;
+        friend class PhyEngine;
 };
 
 #endif
