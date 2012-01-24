@@ -40,7 +40,7 @@ class Game
 		void setWorld(World* world);
 
     public:
-        std::vector<Entity*> entityList;
+        std::vector<Entity*> entityList;//is this now in world?? should it now be removed?
 
     private:
         bool mIsRunning;

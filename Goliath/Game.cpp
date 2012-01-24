@@ -19,13 +19,13 @@ Game::Game(void) :
 
     setWorld(mWorldBuilder->build());
 
-    // FIXME - adding a test entity
+    /*// FIXME - adding a test entity
     Vector2 dudeDim(60,60);
     Vector2 dudePos(300, 300);
     Entity *test = new Entity("img/images.jpg", dudeDim, dudePos, false);
     entityList.push_back(test);
     mCurrentWorld->addEntity(test);
-    mCurrentWorld->setPlayerEntity(test);
+    mCurrentWorld->setPlayerEntity(test);*/
 
     //mPhyEngine = new PhyEngine(this);
 }

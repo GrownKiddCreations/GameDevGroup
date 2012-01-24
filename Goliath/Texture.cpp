@@ -47,7 +47,7 @@ void Texture::load(bool generateMipmaps)
         std::cout << "Error loading texture files!" << std::endl;
 
     // Generate and bind ID for this texture
-    glGenTextures(1, &mId);
+    glGenTextures(1, &mId);//ERROR HERE?! second parameter is an array not just an int...
     glBindTexture(GL_TEXTURE_2D, mId); 
 
     int format = mBitsPerPixel == 24 ? GL_BGR_EXT : mBitsPerPixel == 8 ? GL_LUMINANCE : 0; 
