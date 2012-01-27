@@ -8,15 +8,15 @@
 #include "Entity.h"
 #include "Vector2.h"
 
-Entity::Entity(std::string filename, Vector2 size, Vector2 position, bool passable):
-    mTexture(filename)
+Entity::Entity(std::string filename, Vector2 size, Vector2 position, bool passable)
 {
-    mTexture.load(false);
     mDimension2D = size;
 
     mPosition2D = position;
 
     mPassable = passable;
+
+    mProposedDisplacement2D = Vector2(0,0);
 }
 
 Entity::~Entity()
@@ -119,9 +119,4 @@ int Entity::bottom()
 int Entity::left()
 {
     return mPosition2D.x;
-}
-
-Texture* Entity::getTexture()
-{
-    return &mTexture;
 }

@@ -1,7 +1,6 @@
 #ifndef _ENTITIES_H
 #define _ENTITIES_H
 
-#include "Texture.h"
 #include "Vector2.h"
 #include <string>
 //#include "FreeImage.h"
@@ -38,8 +37,6 @@ class Entity
         int right();
         int left();
 
-        Texture* getTexture();
-
     private:
 
         //int mWidth, mHeight;
@@ -52,8 +49,6 @@ class Entity
         Vector2 mPosition2D;
         Vector2 mSpeed2D;
         Vector2 mProposedDisplacement2D;
-
-        Texture mTexture;
 
         friend class RenderEngine;
         friend class PhyEngine;

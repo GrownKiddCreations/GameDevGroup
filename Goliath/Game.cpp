@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Vector2.h"
 #include <GL/glew.h>
-#include "lib/FreeImage.h"
+//#include "lib/FreeImage.h"
 #include "WorldBuilder.h"
 #include "SimpleWorldBuilder.h"
 
@@ -9,7 +9,7 @@
 
 //TODO create an initializer for a list of elements/entities
 Game::Game(void) :
-			mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
+        mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
                 Game::VIEWPORT_WIDTH, Game::VIEWPORT_HEIGHT), mEventHandler()
 {
     mIsRunning = false;
@@ -18,28 +18,18 @@ Game::Game(void) :
     mWorldBuilder = new SimpleWorldBuilder(32, 24);
 
     setWorld(mWorldBuilder->build());
-
-    /*// FIXME - adding a test entity
-    Vector2 dudeDim(60,60);
-    Vector2 dudePos(300, 300);
-    Entity *test = new Entity("img/images.jpg", dudeDim, dudePos, false);
-    entityList.push_back(test);
-    mCurrentWorld->addEntity(test);
-    mCurrentWorld->setPlayerEntity(test);*/
-
-    //mPhyEngine = new PhyEngine(this);
 }
 
 Game::~Game(void)
 {
-	delete mWorldBuilder;
+    delete mWorldBuilder;
     delete mCurrentWorld;
 }
 
 bool Game::onInit()
 {
-    std::cout << "Initializing FreeImage..." << std::endl;
-    FreeImage_Initialise(1);
+    //std::cout << "Initializing FreeImage..." << std::endl;
+    //FreeImage_Initialise(1);
 
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
@@ -99,26 +89,26 @@ int Game::onExecute()
 
             switch (event.type)
             {
-				case SDL_KEYDOWN:
-				{
-					SDLKey sym = event.key.keysym.sym;
-					SDLMod mod = event.key.keysym.mod;
-					Uint16 unicode = event.key.keysym.unicode;
+                case SDL_KEYDOWN:
+                {
+                    SDLKey sym = event.key.keysym.sym;
+                    SDLMod mod = event.key.keysym.mod;
+                    Uint16 unicode = event.key.keysym.unicode;
 
-					mKeyStateMap[sym] = true;
+                    mKeyStateMap[sym] = true;
 
-					break;
-				}
-				case SDL_KEYUP:
-				{
-					SDLKey sym = event.key.keysym.sym;
-					SDLMod mod = event.key.keysym.mod;
-					Uint16 unicode = event.key.keysym.unicode;
+                    break;
+                }
+                case SDL_KEYUP:
+                {
+                    SDLKey sym = event.key.keysym.sym;
+                    SDLMod mod = event.key.keysym.mod;
+                    Uint16 unicode = event.key.keysym.unicode;
 
-					mKeyStateMap[sym] = false;
+                    mKeyStateMap[sym] = false;
 
-					break;
-				}
+                    break;
+                }
             }
         }
 
@@ -137,32 +127,33 @@ int Game::onExecute()
 void Game::onLoop()
 {
 
-	Entity *pc = mCurrentWorld->getPlayerEntity();
-	int x = 0, y = 0;
+    Entity *pc = new Entity("invalid", Vector2(25, 25), Vector2(25, 25), false);//Arbitrary bs... insert usable values when it becomes useful
+    mCurrentWorld->setPlayerEntity(pc);
+    float x = 0.0f, y = 0.0f;
 
-	const float SPEED = 2.0f;
+    const float SPEED = 2.0f;
 
-	if (mKeyStateMap[SDLK_UP])
-	{
-		y += SPEED;
-	}
-	if (mKeyStateMap[SDLK_LEFT])
-	{
-		x -= SPEED;
-	}
-	if (mKeyStateMap[SDLK_DOWN])
-	{
-		y -= SPEED;
-	}
-	if (mKeyStateMap[SDLK_RIGHT])
-	{
-		x += SPEED;
-	}
+    if (mKeyStateMap[SDLK_UP])
+    {
+        y += SPEED;
+    }
+    if (mKeyStateMap[SDLK_LEFT])
+    {
+        x -= SPEED;
+    }
+    if (mKeyStateMap[SDLK_DOWN])
+    {
+        y -= SPEED;
+    }
+    if (mKeyStateMap[SDLK_RIGHT])
+    {
+        x += SPEED;
+    }
 
-	//pc->setPosition(x, y);
-	pc->setProposedDisplacement(x, y);
+    //pc->setPosition(x, y);
+    pc->setProposedDisplacement(x, y);
 
-	mPhyEngine.step(mCurrentWorld);
+    mPhyEngine.step(mCurrentWorld);
 }
 
 void Game::onRender()
