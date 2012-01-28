@@ -6,17 +6,18 @@
  */
 
 #include "Entity.h"
+
+#include "World.h"
+#include "Tile.h"
 #include "Vector2.h"
 
-Entity::Entity(std::string filename, Vector2 size, Vector2 position, bool passable)
+Entity::Entity(std::string filename, Vector2 size, Vector2 position, float mass, bool passable)
 {
     mDimension2D = size;
-
     mPosition2D = position;
-
     mPassable = passable;
 
-    mProposedDisplacement2D = Vector2(0,0);
+    mMass = mass;
 }
 
 Entity::~Entity()
@@ -54,21 +55,6 @@ int Entity::getY()
     return mPosition2D.y;
 }
 
-Vector2 Entity::getSpeed2D()
-{
-    return mSpeed2D;
-}
-
-int Entity::getSpeedX()
-{
-    return mSpeed2D.x;
-}
-
-int Entity::getSpeedY()
-{
-    return mSpeed2D.y;
-}
-
 bool Entity::isPassable()
 {
     return mPassable;
@@ -79,26 +65,54 @@ void Entity::setPosition(Vector2 position)
     mPosition2D = position;
 }
 
-void Entity::setPosition(int x, int y)
+void Entity::setPosition(float x, float y)
 {
     mPosition2D.x = x;
     mPosition2D.y = y;
 }
 
-void Entity::setSpeed(Vector2 speed)
+void Entity::addForce(float x, float y)
 {
-    mSpeed2D = speed;
+	mForce2D.x += x;
+	mForce2D.y += y;
 }
 
-void Entity::setProposedDisplacement(float xd, float yd)
+void Entity::setForce(float x, float y)
 {
-	mProposedDisplacement2D.x = xd;
-	mProposedDisplacement2D.y = yd;
+	mForce2D.x = x;
+	mForce2D.y = y;
 }
 
-Vector2 Entity::getProposedDisplacement()
+Vector2 Entity::getForce()
 {
-	return mProposedDisplacement2D;
+	return mForce2D;
+}
+
+Vector2 Entity::getVelocity()
+{
+	return mVelocity2D;
+}
+
+Vector2 Entity::setVelocity(float x, float y)
+{
+	mVelocity2D.x = x;
+	mVelocity2D.y = y;
+}
+
+float Entity::getMass()
+{
+	return mMass;
+}
+
+void Entity::setImpulse(float xd, float yd)
+{
+	mImpulse2D.x = xd;
+	mImpulse2D.y = yd;
+}
+
+Vector2 Entity::getImpulse()
+{
+	return mImpulse2D;
 }
 
 int Entity::top()
@@ -119,4 +133,38 @@ int Entity::bottom()
 int Entity::left()
 {
     return mPosition2D.x;
+}
+
+bool Entity::isOnPlatformDown(World* world)
+{
+	int bounds[4][2];
+
+	bounds[0][0] = left() / TILE_SIZE;
+	bounds[0][1] = top() / TILE_SIZE;
+
+	bounds[1][0] = left() / TILE_SIZE;
+	bounds[1][1] = bottom() / TILE_SIZE;
+
+	bounds[2][0] = right() / TILE_SIZE;
+	bounds[2][1] = bottom() / TILE_SIZE;
+
+	bounds[3][0] = right() / TILE_SIZE;
+	bounds[3][1] = top() / TILE_SIZE;
+
+	if (bottom() < bounds[2][1] * TILE_SIZE + 1)
+	{
+		int tiles_horizontal = bounds[3][0] - bounds[0][0] + 1;
+		Tile* tile = NULL;
+
+		for (int i = 0; i < tiles_horizontal; ++i)
+		{
+			tile = world->getTile(bounds[2][0] - i, bounds[2][1] - 1);
+			if (tile != NULL && !tile->getType()->isPassable())
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

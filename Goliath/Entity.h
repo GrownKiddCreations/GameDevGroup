@@ -1,14 +1,16 @@
 #ifndef _ENTITIES_H
 #define _ENTITIES_H
 
-#include "Vector2.h"
 #include <string>
-//#include "FreeImage.h"
+
+#include "Vector2.h"
+
+class World;
 
 class Entity
 {
     public:
-        Entity(std::string, Vector2, Vector2, bool);
+        Entity(std::string, Vector2, Vector2, float, bool);
         ~Entity(void);
 
         Vector2 getDimensions2D();
@@ -19,36 +21,42 @@ class Entity
         int getX();
         int getY();
 
-        Vector2 getSpeed2D();
-        int getSpeedX();
-        int getSpeedY();
-
         bool isPassable();
 
-        void setSpeed(Vector2);
         void setPosition(Vector2);
-        void setPosition(int,int);
+        void setPosition(float,float);
 
-        void setProposedDisplacement(float, float);
-        Vector2 getProposedDisplacement();
+        void addForce(float, float);
+        void setForce(float,float);
+        Vector2 getForce();
+
+        Vector2 getVelocity();
+        Vector2 setVelocity(float, float);
+        float getMass();
+
+        void setImpulse(float, float);
+        Vector2 getImpulse();
 
         int top();
         int bottom();
         int right();
         int left();
 
+        // visitor methods
+        bool isOnPlatformDown(World*);
+
     private:
 
-        //int mWidth, mHeight;
-        //int mPositionX, mPositionY;
-        //int mSpeedX, mSpeedY;
         bool mPassable; // for collision detection
+
+        float mMass;
 
         //Vector2 attributes
         Vector2 mDimension2D;
         Vector2 mPosition2D;
-        Vector2 mSpeed2D;
-        Vector2 mProposedDisplacement2D;
+        Vector2 mForce2D;
+        Vector2 mVelocity2D;
+        Vector2 mImpulse2D;
 
         friend class RenderEngine;
         friend class PhyEngine;

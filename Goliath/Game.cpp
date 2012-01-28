@@ -133,7 +133,10 @@ void Game::onLoop()
 
 		if (mKeyStateMap[SDLK_UP])
 		{
-			y += SPEED;
+			//if (pc->isOnPlatform(mCurrentWorld))
+			//{
+				y += SPEED;;
+			//}
 		}
 		if (mKeyStateMap[SDLK_LEFT])
 		{
@@ -148,8 +151,7 @@ void Game::onLoop()
 			x += SPEED;
 		}
 
-		//pc->setPosition(x, y);
-		pc->setProposedDisplacement(x, y);
+		pc->setImpulse(x, y);
     }
 
     mPhyEngine.step(mCurrentWorld);

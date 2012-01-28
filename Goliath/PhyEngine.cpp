@@ -28,10 +28,39 @@ void PhyEngine::step(World* world)
 	{
 		Entity *entity = *iter;
 
-		Vector2 proposedDisplacement = entity->getProposedDisplacement();
+		Vector2 impulse = entity->getImpulse();
+		entity->setImpulse(0, 0); // clear
+
+		//entity->addForce(0.0, -2.0); // gravity
+
+		Vector2 force = entity->getForce();
+		entity->setForce(0, 0); // clear
+
+		Vector2 velocity = entity->getVelocity();
+
+		// f = ma
+		velocity.x += (force.x / entity->getMass());
+		velocity.y += (force.y / entity->getMass());
+
+		if (velocity.magnitude() > TERMINAL_VELOCITY)
+		{
+			// scale
+		}
+
+		entity->setVelocity(velocity.x, velocity.y);
+
+		impulse.x += velocity.x;
+		impulse.y += velocity.y;
+
+		Vector2 proposedDisplacement(impulse.x + velocity.x, impulse.y + velocity.y);
 
 		// apply gravity
-		//proposedDisplacement.y -= 3;
+		if (entity->isOnPlatformDown(world) && proposedDisplacement.y <= 0)
+		{
+			velocity.y = 0;
+			entity->setVelocity(velocity.x, velocity.y);
+			proposedDisplacement.y = 0;
+		}
 
 		Vector2 currentPosition = entity->mPosition2D;
 		Vector2 finalPosition = entity->mPosition2D;
@@ -201,7 +230,6 @@ void PhyEngine::step(World* world)
 		// TODO: check collision with other entities
 
 		entity->setPosition(finalPosition);
-		entity->setProposedDisplacement(0, 0);
 	}
 
 }

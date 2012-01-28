@@ -48,7 +48,7 @@ World* SimpleWorldBuilder::build(void)
 	theWorld->setTile(new Tile(dirt), 9, 9);
 
 	// Init player character
-	Entity *pc = new Entity("player character", Vector2(50, 50), Vector2(200, 300), false);
+	Entity *pc = new Entity("player character", Vector2(25, 45), Vector2(200, 300), 100.0, false);
 	theWorld->addEntity(pc);
 	theWorld->setPlayerEntity(pc);
 

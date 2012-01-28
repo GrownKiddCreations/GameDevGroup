@@ -8,13 +8,21 @@
 #ifndef VECTOR2_H_
 #define VECTOR2_H_
 
-struct Vector2
+class Vector2
 {
-    float x; //can be positive
-    float y; //can be negative
+public:
 
-    Vector2();
-    Vector2(float, float);
+	Vector2();
+	Vector2(float, float);
+
+	float magnitude();
+	void scale(float);
+	Vector2 createUnit();
+
+    float x;
+    float y;
+
+
           
 };
 
