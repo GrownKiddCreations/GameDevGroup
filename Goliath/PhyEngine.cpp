@@ -33,21 +33,22 @@ void PhyEngine::step(World* world)
 		// apply gravity
 		//proposedDisplacement.y -= 3;
 
-		Vector2 finalDisplacement(proposedDisplacement.x, proposedDisplacement.y);
 		Vector2 currentPosition = entity->mPosition2D;
 		Vector2 finalPosition = entity->mPosition2D;
 
-		// get directions
+		Tile *tile = NULL;
+
+		// get directions the entity is traveling in
 		bool up = false, left = false, down = false, right = false;
 
-		if (finalDisplacement.x < 0)
+		if (proposedDisplacement.x < 0)
 			left = true;
-		else if (finalDisplacement.x > 0)
+		else if (proposedDisplacement.x > 0)
 			right = true;
 
-		if (finalDisplacement.y < 0)
+		if (proposedDisplacement.y < 0)
 			down = true;
-		else if (finalDisplacement.y > 0)
+		else if (proposedDisplacement.y > 0)
 			up = true;
 
 		int currentBox[4][2];
@@ -79,8 +80,8 @@ void PhyEngine::step(World* world)
 		finalBox[3][0] = (currentPosition.x + proposedDisplacement.x + entity->getWidth()) / TILE_SIZE;
 		finalBox[3][1] = (currentPosition.y + proposedDisplacement.y + entity->getHeight()) / TILE_SIZE;
 
-		finalPosition.x += finalDisplacement.x;
-		finalPosition.y += finalDisplacement.y;
+		finalPosition.x += proposedDisplacement.x;
+		finalPosition.y += proposedDisplacement.y;
 
 		// enforce world bounds
 		if (finalPosition.x < 0)
@@ -104,8 +105,7 @@ void PhyEngine::step(World* world)
 		}
 
 		// check collision with non-passable tiles
-		// left-right bounds checking
-		Tile *tile = NULL;
+
 		// left
 		if (left)
 		{
@@ -116,9 +116,9 @@ void PhyEngine::step(World* world)
 				for (int i = 0; i < entity_tiles_vertical; ++i)
 				{
 					tile = world->getTile(finalBox[0][0], finalBox[0][1] - i);
-					if (!tile->getType()->isPassable())
+					if (tile != NULL && !tile->getType()->isPassable())
 					{
-						finalPosition.x = (finalBox[0][0] * TILE_SIZE) + TILE_SIZE;
+						finalPosition.x = (finalBox[0][0] * TILE_SIZE) + TILE_SIZE + 1;
 						break;
 					}
 				}
@@ -137,7 +137,7 @@ void PhyEngine::step(World* world)
 					try
 					{
 						tile = world->getTile(finalBox[3][0], finalBox[3][1] - i);
-						if (!tile->getType()->isPassable())
+						if (tile != NULL && !tile->getType()->isPassable())
 						{
 							finalPosition.x = (finalBox[3][0] * TILE_SIZE) - entity->getWidth() - 1;
 							break;
@@ -147,13 +147,11 @@ void PhyEngine::step(World* world)
 					{
 						std::cout << "out of bounds!\n";
 					}
-
 				}
 				tile = NULL;
 			}
 		}
 
-		// left-right bounds checking
 		// up
 		if (up)
 		{
@@ -166,7 +164,7 @@ void PhyEngine::step(World* world)
 					try
 					{
 						tile = world->getTile(finalBox[3][0] - i, finalBox[3][1]);
-						if (!tile->getType()->isPassable())
+						if (tile != NULL && !tile->getType()->isPassable())
 						{
 							finalPosition.y = (finalBox[3][1] * TILE_SIZE) - entity->getHeight() - 1;
 							break;
@@ -190,7 +188,7 @@ void PhyEngine::step(World* world)
 				for (int i = 0; i < entity_tiles_horizontal; ++i)
 				{
 					tile = world->getTile(finalBox[3][0] - i, finalBox[1][1]);
-					if (!tile->getType()->isPassable())
+					if (tile != NULL && !tile->getType()->isPassable())
 					{
 						finalPosition.y = (finalBox[1][1] * TILE_SIZE) + TILE_SIZE;
 						break;

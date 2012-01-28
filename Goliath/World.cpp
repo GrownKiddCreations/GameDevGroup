@@ -1,4 +1,6 @@
 #include <iostream>
+#include <exception>
+#include <stdexcept>
 
 #include "World.h"
 
@@ -55,7 +57,22 @@ int World::getHeight()
 
 Tile* World::getTile(int x, int y)
 {
-	return mMatrix->at(x)->at(y);
+	try
+	{
+		std::vector< Tile* > *v = mMatrix->at(x);
+		try
+		{
+			return mMatrix->at(x)->at(y);
+		}
+		catch (std::out_of_range &e)
+		{
+			return NULL;
+		}
+	}
+	catch (std::out_of_range &e)
+	{
+		return NULL;
+	}
 }
 
 void World::setTile(Tile* tile, int x, int y)
