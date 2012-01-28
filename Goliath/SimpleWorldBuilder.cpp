@@ -40,6 +40,18 @@ World* SimpleWorldBuilder::build(void)
 		}
 	}
 
+	theWorld->setTile(new Tile(dirt), 12, 12);
+	theWorld->setTile(new Tile(dirt), 12, 13);
+	theWorld->setTile(new Tile(dirt), 12, 9);
+	theWorld->setTile(new Tile(dirt), 11, 9);
+	theWorld->setTile(new Tile(dirt), 10, 9);
+	theWorld->setTile(new Tile(dirt), 9, 9);
+
+	// Init player character
+	Entity *pc = new Entity("player character", Vector2(50, 50), Vector2(200, 300), false);
+	theWorld->addEntity(pc);
+	theWorld->setPlayerEntity(pc);
+
 	return theWorld;
 }
 

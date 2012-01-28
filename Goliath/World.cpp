@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "World.h"
 
 
@@ -26,6 +28,8 @@ World::World(int width, int height, std::vector<TileType *> &tileTypes)
 		
 		mMatrix->push_back(w);
 	}
+
+	mPlayerEntity = NULL;
 }
 
 World::~World()

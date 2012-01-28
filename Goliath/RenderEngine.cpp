@@ -68,7 +68,6 @@ void RenderEngine::initCamera()
 
 void RenderEngine::renderEntity(Entity *being)
 {
-
     glColor3f(1, 0, 0);
     glRectf(being->getX(), being->getY(), being->getX() + being->getWidth(), being->getY() + being->getHeight());
     

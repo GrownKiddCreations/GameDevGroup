@@ -11,14 +11,6 @@ int main(int argc, char** argv)
 {
 
 	Game theGame;
+    return theGame.onExecute();
 
-    /* Initialize game control objects and resources */
-    if (theGame.onInit() != false)
-    {
-        return theGame.onExecute();
-    }
-    else
-    {
-        return -1;
-    }
 }

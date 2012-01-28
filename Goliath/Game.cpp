@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "Vector2.h"
 #include <GL/glew.h>
-//#include "lib/FreeImage.h"
 #include "WorldBuilder.h"
 #include "SimpleWorldBuilder.h"
 
@@ -28,9 +27,6 @@ Game::~Game(void)
 
 bool Game::onInit()
 {
-    //std::cout << "Initializing FreeImage..." << std::endl;
-    //FreeImage_Initialise(1);
-
     /* Set itself on the eventHandler */
     mEventHandler.SetGame(this);
 
@@ -127,31 +123,34 @@ int Game::onExecute()
 void Game::onLoop()
 {
 
-    Entity *pc = new Entity("invalid", Vector2(25, 25), Vector2(25, 25), false);//Arbitrary bs... insert usable values when it becomes useful
-    mCurrentWorld->setPlayerEntity(pc);
-    float x = 0.0f, y = 0.0f;
+    Entity *pc = mCurrentWorld->getPlayerEntity();
 
-    const float SPEED = 2.0f;
+    if (pc != NULL)
+    {
+		float x = 0.0f, y = 0.0f;
 
-    if (mKeyStateMap[SDLK_UP])
-    {
-        y += SPEED;
-    }
-    if (mKeyStateMap[SDLK_LEFT])
-    {
-        x -= SPEED;
-    }
-    if (mKeyStateMap[SDLK_DOWN])
-    {
-        y -= SPEED;
-    }
-    if (mKeyStateMap[SDLK_RIGHT])
-    {
-        x += SPEED;
-    }
+		const float SPEED = 2.0f;
 
-    //pc->setPosition(x, y);
-    pc->setProposedDisplacement(x, y);
+		if (mKeyStateMap[SDLK_UP])
+		{
+			y += SPEED;
+		}
+		if (mKeyStateMap[SDLK_LEFT])
+		{
+			x -= SPEED;
+		}
+		if (mKeyStateMap[SDLK_DOWN])
+		{
+			y -= SPEED;
+		}
+		if (mKeyStateMap[SDLK_RIGHT])
+		{
+			x += SPEED;
+		}
+
+		//pc->setPosition(x, y);
+		pc->setProposedDisplacement(x, y);
+    }
 
     mPhyEngine.step(mCurrentWorld);
 }
