@@ -6,15 +6,15 @@
 
 #include "SDL/SDL.h"
 
-#include <vector>
 #include <map>
+#include <vector>
+#include "World.h"
+#include "Entity.h"
+#include "PhyEngine.h"
 #include "RenderEngine.h"
 #include "EventHandler.h"
 #include "FrameControl.h"
-#include "PhyEngine.h"
-#include "World.h"
 #include "SimpleWorldBuilder.h"
-#include "Entity.h"
 
 class Game
 {
@@ -39,20 +39,17 @@ class Game
         World* getWorld();
 		void setWorld(World* world);
 
-    public:
-        std::vector<Entity*> entityList;//is this now in world?? should it now be removed?
-
     private:
-        bool mIsRunning;
-        PhyEngine mPhyEngine;
-        RenderEngine mRenderEngine;
-        EventHandler mEventHandler;
-        FrameControl mFrameControl;
+        bool                    mIsRunning;
+        PhyEngine               mPhyEngine;
+        RenderEngine            mRenderEngine;
+        EventHandler            mEventHandler;
+        FrameControl            mFrameControl;
 
-        WorldBuilder* mWorldBuilder;
-        World *mCurrentWorld;
+        WorldBuilder*           mWorldBuilder;
+        World*                  mCurrentWorld;
 
-        std::map<SDLKey, bool> mKeyStateMap;
+        std::map<SDLKey, bool>  mKeyStateMap;
 
 };
 

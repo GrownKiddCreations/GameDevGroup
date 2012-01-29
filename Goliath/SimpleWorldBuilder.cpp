@@ -52,6 +52,8 @@ World* SimpleWorldBuilder::build(void)
 	theWorld->addEntity(pc);
 	theWorld->setPlayerEntity(pc);
 
+	//init random enemy
+
 	return theWorld;
 }
 

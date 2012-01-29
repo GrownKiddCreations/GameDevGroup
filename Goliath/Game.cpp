@@ -1,10 +1,10 @@
 #include "Game.h"
 #include "Vector2.h"
-#include <GL/glew.h>
 #include "WorldBuilder.h"
 #include "SimpleWorldBuilder.h"
 
 #include <iostream>
+#include <GL/glew.h>
 
 //TODO create an initializer for a list of elements/entities
 Game::Game(void) :
@@ -122,7 +122,6 @@ int Game::onExecute()
 
 void Game::onLoop()
 {
-
     Entity *pc = mCurrentWorld->getPlayerEntity();
 
     if (pc != NULL)

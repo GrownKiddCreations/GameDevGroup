@@ -6,10 +6,10 @@
 #include <Windows.h>
 #endif
 
-#include <GL/gl.h>
-#include "SDL/SDL.h"
 #include <vector>
+#include <GL/gl.h>
 #include <iostream>
+#include "SDL/SDL.h"
 
 #include "RenderEngine.h"
 
