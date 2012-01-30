@@ -23,9 +23,13 @@ class Entity
 
         bool isPassable();
 
+        //x,y coords
         void setPosition(Vector2);
         void setPosition(float,float);
 
+        std::string getName();
+
+        //what is force for?
         void addForce(float, float);
         void setForce(float,float);
         Vector2 getForce();
@@ -34,9 +38,11 @@ class Entity
         Vector2 setVelocity(float, float);
         float getMass();
 
+        //what is this?
         void setImpulse(float, float);
         Vector2 getImpulse();
 
+        //collision detection
         int top();
         int bottom();
         int right();
@@ -47,16 +53,18 @@ class Entity
 
     private:
 
-        bool mPassable; // for collision detection
+        bool        mPassable; // for collision detection
 
-        float mMass;
+        std::string mName;
+
+        float       mMass;
 
         //Vector2 attributes
-        Vector2 mDimension2D;
-        Vector2 mPosition2D;
-        Vector2 mForce2D;
-        Vector2 mVelocity2D;
-        Vector2 mImpulse2D;
+        Vector2     mDimension2D;
+        Vector2     mPosition2D;
+        Vector2     mForce2D;
+        Vector2     mVelocity2D;
+        Vector2     mImpulse2D;
 
         friend class RenderEngine;
         friend class PhyEngine;

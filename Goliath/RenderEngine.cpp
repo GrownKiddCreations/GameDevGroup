@@ -7,6 +7,7 @@
 #endif
 
 #include <vector>
+#include <string>
 #include <GL/gl.h>
 #include <iostream>
 #include "SDL/SDL.h"
@@ -68,7 +69,15 @@ void RenderEngine::initCamera()
 
 void RenderEngine::renderEntity(Entity *being)
 {
-    glColor3f(1, 0, 0);
+    if((being->getName().compare("enemy")))
+    {
+        glColor3f(1, 0, 0);
+    }
+    else
+    {
+        glColor3f(0,1,0);
+    }
+
     glRectf(being->getX(), being->getY(), being->getX() + being->getWidth(), being->getY() + being->getHeight());
     
     /* Not a good idea to load the texture at every loop */
@@ -104,6 +113,7 @@ void RenderEngine::renderWorld(World *world)
 	std::set<Entity *>::iterator iter;
 	for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
 	{
+
 		renderEntity(*iter);
 	}
 

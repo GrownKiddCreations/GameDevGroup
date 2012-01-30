@@ -17,6 +17,8 @@ Entity::Entity(std::string filename, Vector2 size, Vector2 position, float mass,
     mPosition2D = position;
     mPassable = passable;
 
+    mName = filename;//this is temporary until I figure a better way around; describes enemy vs player
+
     mMass = mass;
 }
 
@@ -69,6 +71,11 @@ void Entity::setPosition(float x, float y)
 {
     mPosition2D.x = x;
     mPosition2D.y = y;
+}
+
+std::string Entity::getName()
+{
+    return mName;
 }
 
 void Entity::addForce(float x, float y)

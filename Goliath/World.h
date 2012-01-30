@@ -1,8 +1,8 @@
 #ifndef _WORLD_H
 #define _WORLD_H
 
-#include <vector>
 #include <set>
+#include <vector>
 
 #include "Tile.h"
 #include "Entity.h"
