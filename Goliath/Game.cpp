@@ -128,26 +128,34 @@ void Game::onLoop()
     {
 		float x = 0.0f, y = 0.0f;
 
-		const float SPEED = 2.0f;
+		const float SPEED = 0.7f;
+
+		bool isOnPlatformDown = pc->isOnPlatformDown(mCurrentWorld);
 
 		if (mKeyStateMap[SDLK_UP])
 		{
-			//if (pc->isOnPlatform(mCurrentWorld))
-			//{
-				y += SPEED;;
-			//}
+			if (isOnPlatformDown)
+			{
+				y += 25;
+			}
 		}
 		if (mKeyStateMap[SDLK_LEFT])
 		{
-			x -= SPEED;
+			if (isOnPlatformDown)
+			{
+				x -= SPEED;
+			}
 		}
-		if (mKeyStateMap[SDLK_DOWN])
+		/*if (mKeyStateMap[SDLK_DOWN])
 		{
 			y -= SPEED;
-		}
+		}*/
 		if (mKeyStateMap[SDLK_RIGHT])
 		{
-			x += SPEED;
+			if (isOnPlatformDown)
+			{
+				x += SPEED;
+			}
 		}
 
 		pc->setImpulse(x, y);

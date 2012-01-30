@@ -2,6 +2,7 @@
 #include <math.h>
 #include <exception>
 #include <stdexcept>
+#include <cstdlib>
 
 #include "PhyEngine.h"
 #include "Entity.h"
@@ -23,42 +24,42 @@ void PhyEngine::step(World* world)
 	const int WORLD_LIMIT_X = world->getWidth() * TILE_SIZE;
 	const int WORLD_LIMIT_Y = world->getHeight() * TILE_SIZE;
 
+	const float damping_coefficient = 0.04; // terrain types will need to have their own damping
+
 	std::set<Entity *>::iterator iter;
 	for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
 	{
 		Entity *entity = *iter;
 
+		entity->addForce(0.0, -14.0); // gravity
+
 		Vector2 impulse = entity->getImpulse();
-		entity->setImpulse(0, 0); // clear
-
-		//entity->addForce(0.0, -2.0); // gravity
-
 		Vector2 force = entity->getForce();
-		entity->setForce(0, 0); // clear
-
 		Vector2 velocity = entity->getVelocity();
+
+		entity->setImpulse(0, 0); // clear
+		entity->setForce(0, 0); // clear
 
 		// f = ma
 		velocity.x += (force.x / entity->getMass());
 		velocity.y += (force.y / entity->getMass());
 
+		velocity.x += impulse.x;
+		velocity.y += impulse.y;
+
+		velocity.scale(1.0 - damping_coefficient);
+
+		// enforce terminal velocity. TODO: rather use dampening
 		if (velocity.magnitude() > TERMINAL_VELOCITY)
 		{
-			// scale
+			velocity.makeUnit()->scale(TERMINAL_VELOCITY);
 		}
 
-		entity->setVelocity(velocity.x, velocity.y);
+		Vector2 proposedDisplacement(velocity.x, velocity.y);
 
-		impulse.x += velocity.x;
-		impulse.y += velocity.y;
-
-		Vector2 proposedDisplacement(impulse.x + velocity.x, impulse.y + velocity.y);
-
-		// apply gravity
 		if (entity->isOnPlatformDown(world) && proposedDisplacement.y <= 0)
 		{
 			velocity.y = 0;
-			entity->setVelocity(velocity.x, velocity.y);
 			proposedDisplacement.y = 0;
 		}
 
@@ -116,21 +117,25 @@ void PhyEngine::step(World* world)
 		if (finalPosition.x < 0)
 		{
 			finalPosition.x = 0;
+			velocity.x = 0;
 		}
 
 		if (finalPosition.y < 0)
 		{
 			finalPosition.y = 0;
+			velocity.y = 0;
 		}
 
 		if (finalPosition.x + entity->getWidth() > WORLD_LIMIT_X)
 		{
 			finalPosition.x = WORLD_LIMIT_X - entity->getWidth();
+			velocity.x = 0;
 		}
 
 		if (finalPosition.y + entity->getHeight() > WORLD_LIMIT_Y)
 		{
 			finalPosition.y = WORLD_LIMIT_Y - entity->getHeight();
+			velocity.y = 0;
 		}
 
 		// check collision with non-passable tiles
@@ -148,6 +153,7 @@ void PhyEngine::step(World* world)
 					if (tile != NULL && !tile->getType()->isPassable())
 					{
 						finalPosition.x = (finalBox[0][0] * TILE_SIZE) + TILE_SIZE + 1;
+						velocity.x = 0;
 						break;
 					}
 				}
@@ -169,6 +175,7 @@ void PhyEngine::step(World* world)
 						if (tile != NULL && !tile->getType()->isPassable())
 						{
 							finalPosition.x = (finalBox[3][0] * TILE_SIZE) - entity->getWidth() - 1;
+							velocity.x = 0;
 							break;
 						}
 					}
@@ -196,6 +203,7 @@ void PhyEngine::step(World* world)
 						if (tile != NULL && !tile->getType()->isPassable())
 						{
 							finalPosition.y = (finalBox[3][1] * TILE_SIZE) - entity->getHeight() - 1;
+							velocity.y = 0;
 							break;
 						}
 					}
@@ -220,6 +228,7 @@ void PhyEngine::step(World* world)
 					if (tile != NULL && !tile->getType()->isPassable())
 					{
 						finalPosition.y = (finalBox[1][1] * TILE_SIZE) + TILE_SIZE;
+						velocity.y = 0;
 						break;
 					}
 				}
@@ -230,6 +239,7 @@ void PhyEngine::step(World* world)
 		// TODO: check collision with other entities
 
 		entity->setPosition(finalPosition);
+		entity->setVelocity(velocity.x, velocity.y);
 	}
 
 }

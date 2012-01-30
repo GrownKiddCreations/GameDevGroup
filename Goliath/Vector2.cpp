@@ -25,18 +25,30 @@ float Vector2::magnitude()
 	return sqrt((x * x) + (y * y));
 }
 
-void Vector2::scale(float scale)
+Vector2* Vector2::scale(float scale)
 {
 	x *= scale;
 	y *= scale;
+
+	return this;
 }
 
-Vector2 Vector2::createUnit()
+Vector2* Vector2::add(Vector2 other)
+{
+	x += other.x;
+	y += other.y;
+
+	return this;
+}
+
+Vector2* Vector2::makeUnit()
 {
 	float m = magnitude();
 	if (m != 0)
 	{
-		return Vector2(x /= m, y /= m);
+		x /= m;
+		y /= m;
 	}
-	return Vector2(0.0, 0.0);
+
+	return this;
 }

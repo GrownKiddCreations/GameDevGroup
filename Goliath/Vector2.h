@@ -16,13 +16,12 @@ public:
 	Vector2(float, float);
 
 	float magnitude();
-	void scale(float);
-	Vector2 createUnit();
+	Vector2* scale(float);
+	Vector2* add(Vector2);
+	Vector2* makeUnit();
 
     float x;
     float y;
-
-
           
 };
 

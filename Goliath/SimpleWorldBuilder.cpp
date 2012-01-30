@@ -40,12 +40,23 @@ World* SimpleWorldBuilder::build(void)
 		}
 	}
 
-	theWorld->setTile(new Tile(dirt), 12, 12);
-	theWorld->setTile(new Tile(dirt), 12, 13);
+	theWorld->setTile(new Tile(dirt), 5, 6);
+	theWorld->setTile(new Tile(dirt), 6, 6);
+	theWorld->setTile(new Tile(dirt), 7, 6);
+	theWorld->setTile(new Tile(dirt), 8, 6);
+	theWorld->setTile(new Tile(dirt), 9, 6);
+
 	theWorld->setTile(new Tile(dirt), 12, 9);
-	theWorld->setTile(new Tile(dirt), 11, 9);
-	theWorld->setTile(new Tile(dirt), 10, 9);
-	theWorld->setTile(new Tile(dirt), 9, 9);
+	theWorld->setTile(new Tile(dirt), 13, 9);
+	theWorld->setTile(new Tile(dirt), 14, 9);
+	theWorld->setTile(new Tile(dirt), 15, 9);
+	theWorld->setTile(new Tile(dirt), 16, 9);
+
+	theWorld->setTile(new Tile(dirt), 19, 12);
+	theWorld->setTile(new Tile(dirt), 20, 12);
+	theWorld->setTile(new Tile(dirt), 21, 12);
+	theWorld->setTile(new Tile(dirt), 22, 12);
+	theWorld->setTile(new Tile(dirt), 23, 12);
 
 	// Init player character
 	Entity *pc = new Entity("player", Vector2(25, 45), Vector2(200, 300), 100.0, false);
@@ -53,7 +64,7 @@ World* SimpleWorldBuilder::build(void)
 	theWorld->setPlayerEntity(pc);
 
 	//init random enemy
-	Entity *enemy = new Entity("enemy", Vector2(10,10), Vector2(mWidth/2,mHeight/2), 10.0, false);
+	Entity *enemy = new Entity("enemy", Vector2(10,10), Vector2(200, 400), 10.0, false);
 	theWorld->addEntity(enemy);
 
 	return theWorld;
