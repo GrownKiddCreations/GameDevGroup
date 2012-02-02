@@ -4,6 +4,8 @@
 .classpath
 .settings
 Debug
+Default
+GoliathJava
 bin
 gen
 
