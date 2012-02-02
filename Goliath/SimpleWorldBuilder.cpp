@@ -59,12 +59,12 @@ World* SimpleWorldBuilder::build(void)
 	theWorld->setTile(new Tile(dirt), 23, 12);
 
 	// Init player character
-	Entity *pc = new Entity("player", Vector2(25, 45), Vector2(200, 300), 100.0, false);
+	Entity *pc = new Entity("player","", Vector2(25, 45), Vector2(200, 300), 100.0, false);
 	theWorld->addEntity(pc);
 	theWorld->setPlayerEntity(pc);
 
 	//init random enemy
-	Entity *enemy = new Entity("enemy", Vector2(10,10), Vector2(200, 400), 10.0, false);
+	Entity *enemy = new Entity("enemy","", Vector2(10,10), Vector2(200, 400), 10.0, false);
 	theWorld->addEntity(enemy);
 
 	return theWorld;

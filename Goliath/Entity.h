@@ -10,7 +10,7 @@ class World;
 class Entity
 {
     public:
-        Entity(std::string, Vector2, Vector2, float, bool);
+        Entity(std::string, std::string, Vector2, Vector2, float, bool);
         ~Entity(void);
 
         Vector2 getDimensions2D();
@@ -62,9 +62,9 @@ class Entity
         //Vector2 attributes
         Vector2     mDimension2D;
         Vector2     mPosition2D;
-        Vector2     mForce2D;
-        Vector2     mVelocity2D;
-        Vector2     mImpulse2D;
+        Vector2     mForce2D;//TODO need description of purpose
+        Vector2     mVelocity2D;//TODO need description of purpose
+        Vector2     mImpulse2D;//TODO need description of purpose
 
         friend class RenderEngine;
         friend class PhyEngine;

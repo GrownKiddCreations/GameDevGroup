@@ -20,12 +20,12 @@ Vector2::Vector2(float x, float y)
     this->y = y;
 }
 
-float Vector2::magnitude()
+float Vector2::magnitude()//TODO explanation needed
 {
 	return sqrt((x * x) + (y * y));
 }
 
-Vector2* Vector2::scale(float scale)
+Vector2* Vector2::scale(float scale)//TODO explanation needed
 {
 	x *= scale;
 	y *= scale;
@@ -41,7 +41,7 @@ Vector2* Vector2::add(Vector2 other)
 	return this;
 }
 
-Vector2* Vector2::makeUnit()
+Vector2* Vector2::makeUnit()//TODO explanation needed
 {
 	float m = magnitude();
 	if (m != 0)

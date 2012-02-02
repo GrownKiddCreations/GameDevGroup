@@ -11,13 +11,13 @@
 #include "Tile.h"
 #include "Vector2.h"
 
-Entity::Entity(std::string filename, Vector2 size, Vector2 position, float mass, bool passable)
+Entity::Entity(std::string description, std::string filename, Vector2 size, Vector2 position, float mass, bool passable)
 {
     mDimension2D = size;
     mPosition2D = position;
     mPassable = passable;
 
-    mName = filename;//this is temporary until I figure a better way around; describes enemy vs player
+    mName = description;//this is temporary until I figure a better way around; describes enemy vs player
 
     mMass = mass;
 }

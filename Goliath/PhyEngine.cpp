@@ -1,13 +1,13 @@
-#include <iostream>
 #include <math.h>
+#include <cstdlib>
+#include <iostream>
 #include <exception>
 #include <stdexcept>
-#include <cstdlib>
 
-#include "PhyEngine.h"
+#include "Tile.h"
 #include "Entity.h"
 #include "Vector2.h"
-#include "Tile.h"
+#include "PhyEngine.h"
 
 PhyEngine::PhyEngine()
 {
@@ -20,9 +20,14 @@ PhyEngine::~PhyEngine(void)
 
 void PhyEngine::step(World* world)
 {
+    /*TODO
+     * 1.For each entity in the list we need to adjust the gravity on a continually updating basis and institute terminal velocity
+     * 2.
+     */
 
-	const int WORLD_LIMIT_X = world->getWidth() * TILE_SIZE;
-	const int WORLD_LIMIT_Y = world->getHeight() * TILE_SIZE;
+    const float GRAVITY = -13;//gravity constant
+	const int WORLD_LIMIT_X = world->getWidth() * TILE_SIZE;//TODO explanation needed
+	const int WORLD_LIMIT_Y = world->getHeight() * TILE_SIZE;//TODO explanation needed
 
 	const float damping_coefficient = 0.04; // terrain types will need to have their own damping
 
@@ -31,7 +36,7 @@ void PhyEngine::step(World* world)
 	{
 		Entity *entity = *iter;
 
-		entity->addForce(0.0, -14.0); // gravity
+		entity->addForce(0.0, GRAVITY); //adding gravity
 
 		Vector2 impulse = entity->getImpulse();
 		Vector2 force = entity->getForce();
@@ -47,7 +52,7 @@ void PhyEngine::step(World* world)
 		velocity.x += impulse.x;
 		velocity.y += impulse.y;
 
-		velocity.scale(1.0 - damping_coefficient);
+		velocity.scale(1.0 - damping_coefficient);//TODO explanation needed
 
 		// enforce terminal velocity. TODO: rather use dampening
 		if (velocity.magnitude() > TERMINAL_VELOCITY)
@@ -72,18 +77,27 @@ void PhyEngine::step(World* world)
 		bool up = false, left = false, down = false, right = false;
 
 		if (proposedDisplacement.x < 0)
+		{
 			left = true;
+		}
 		else if (proposedDisplacement.x > 0)
+		{
 			right = true;
+		}
 
 		if (proposedDisplacement.y < 0)
-			down = true;
+        {
+            down = true;
+        }
 		else if (proposedDisplacement.y > 0)
+		{
 			up = true;
+		}
 
-		int currentBox[4][2];
-		int finalBox[4][2];
+		int currentBox[4][2];//TODO explanation needed
+		int finalBox[4][2];//TODO explanation needed
 
+		//FIXME what are these letters?!?!
 		// tl
 		currentBox[0][0] = (currentPosition.x) / TILE_SIZE;
 		currentBox[0][1] = (currentPosition.y + entity->getHeight()) / TILE_SIZE;
