@@ -19,8 +19,10 @@
 class Game
 {
     public:
-        static const int WINDOW_WIDTH = 640;
-        static const int WINDOW_HEIGHT = 480;
+        static const int WINDOW_WIDTH = 700;//TODO we need to make these adjustable based on users choice
+        static const int WINDOW_HEIGHT = 500;//TODO we need to make these adjustable based on users choice
+        /*static const int WINDOW_WIDTH = 640;
+        static const int WINDOW_HEIGHT = 480;*/
         static const int VIEWPORT_WIDTH = WINDOW_WIDTH;
         static const int VIEWPORT_HEIGHT = WINDOW_HEIGHT;
 
