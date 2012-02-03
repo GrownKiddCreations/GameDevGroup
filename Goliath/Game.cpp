@@ -6,6 +6,11 @@
 #include <iostream>
 #include <GL/glew.h>
 
+
+const int X_TILES = 33;//width...
+const int Y_TILES = 25;//height...
+//tiles are 20 X 20 px
+
 //TODO create an initializer for a list of elements/entities
 Game::Game(void) :
         mPhyEngine(), mRenderEngine(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT,
@@ -14,7 +19,7 @@ Game::Game(void) :
     mIsRunning = false;
     mCurrentWorld = NULL;
 
-    mWorldBuilder = new SimpleWorldBuilder(32, 24);
+    mWorldBuilder = new SimpleWorldBuilder(X_TILES, Y_TILES);
 
     setWorld(mWorldBuilder->build());
 }
