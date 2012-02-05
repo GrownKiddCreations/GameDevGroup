@@ -36,7 +36,7 @@ void PhyEngine::step(World* world)
 	{
 		Entity *entity = *iter;
 
-		entity->addForce(0.0, GRAVITY); //adding gravity
+		//entity->addForce(0.0, GRAVITY); //adding gravity
 
 		Vector2<float> impulse = entity->getImpulse();
 		Vector2<float> force = entity->getForce();
@@ -68,31 +68,10 @@ void PhyEngine::step(World* world)
 			proposedDisplacement.y = 0;
 		}
 
-		Vector2<float> currentPosition = entity->mPosition2D;
-		Vector2<float> finalPosition = entity->mPosition2D;
+		Vector2<float> currentPosition = entity->getPosition2D();
+		Vector2<float> finalPosition = entity->getPosition2D();
 
 		Tile *tile = NULL;
-
-		// get directions the entity is traveling in
-		bool up = false, left = false, down = false, right = false;
-
-		if (proposedDisplacement.x < 0)
-		{
-			left = true;
-		}
-		else if (proposedDisplacement.x > 0)
-		{
-			right = true;
-		}
-
-		if (proposedDisplacement.y < 0)
-        {
-            down = true;
-        }
-		else if (proposedDisplacement.y > 0)
-		{
-			up = true;
-		}
 
 		int currentBox[4][2];//TODO explanation needed
 		int finalBox[4][2];//TODO explanation needed
@@ -126,6 +105,27 @@ void PhyEngine::step(World* world)
 
 		finalPosition.x += proposedDisplacement.x;
 		finalPosition.y += proposedDisplacement.y;
+
+		// get directions the entity is traveling in
+		bool up = false, left = false, down = false, right = false;
+
+		if (velocity.x < 0)
+		{
+			left = true;
+		}
+		else if (velocity.x > 0)
+		{
+			right = true;
+		}
+
+		if (velocity.y < 0)
+		{
+			down = true;
+		}
+		else if (velocity.y > 0)
+		{
+			up = true;
+		}
 
 		// enforce world bounds
 		if (finalPosition.x < 0)

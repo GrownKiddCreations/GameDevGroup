@@ -14,7 +14,9 @@ class Rectangle
 {
 public:
 
+	Rectangle();
 	Rectangle(T, T, T, T);
+	//Rectangle(const Rectangle<T>&);
 	~Rectangle();
 
 	T getTop();
@@ -27,17 +29,34 @@ public:
 	Vector2<T> getBottomRight();
 	Vector2<T> getTopRight();
 
+	Vector2<T> getPosition();
+	Vector2<T> getDimension();
+
 	T getWidth();
 	T getHeight();
 
-	void translate(T, T);
-	void resize(T, T);
+	void setX(T);
+	void setY(T);
+	void setPosition(T, T);
+
+	void setSize(T, T);
+	void setWidth(T);
+	void setHeight(T);
 
 private:
 
 	Vector2<T> mPosition;
 	Vector2<T> mDimension;
 };
+
+template <class T>
+Rectangle<T>::Rectangle()
+{
+	mPosition.x = 0;
+	mPosition.y = 0;
+	mDimension.x = 0;
+	mDimension.y = 0;
+}
 
 template <class T>
 Rectangle<T>::Rectangle(T x, T y, T w, T h)
@@ -47,6 +66,15 @@ Rectangle<T>::Rectangle(T x, T y, T w, T h)
 	mDimension.x = w;
 	mDimension.y = h;
 }
+
+/*template <class T>
+Rectangle<T>::Rectangle(const Rectangle<T>& other)
+{
+	mPosition.x = other.mPosition.x;
+	mPosition.y = other.mPosition.y;
+	mDimension.x = other.mDimension.x;
+	mDimension.y = other.mDimension.y;
+}*/
 
 template <class T>
 Rectangle<T>::~Rectangle()
@@ -102,6 +130,18 @@ Vector2<T> Rectangle<T>::getTopRight()
 }
 
 template <class T>
+Vector2<T> Rectangle<T>::getPosition()
+{
+	return mPosition;
+}
+
+template <class T>
+Vector2<T> Rectangle<T>::getDimension()
+{
+	return mDimension;
+}
+
+template <class T>
 T Rectangle<T>::getWidth()
 {
 	return mDimension.x;
@@ -114,16 +154,40 @@ T Rectangle<T>::getHeight()
 }
 
 template <class T>
-void Rectangle<T>::translate(T x, T y)
+void Rectangle<T>::setX(T x)
+{
+	mPosition.x = x;
+}
+
+template <class T>
+void Rectangle<T>::setY(T y)
+{
+	mPosition.y = y;
+}
+
+template <class T>
+void Rectangle<T>::setPosition(T x, T y)
 {
 	mPosition.x = x;
 	mPosition.y = y;
 }
 
 template <class T>
-void Rectangle<T>::resize(T x, T y)
+void Rectangle<T>::setSize(T x, T y)
 {
 	mDimension.x = x;
+	mDimension.y = y;
+}
+
+template <class T>
+void Rectangle<T>::setWidth(T x)
+{
+	mDimension.x = x;
+}
+
+template <class T>
+void Rectangle<T>::setHeight(T y)
+{
 	mDimension.y = y;
 }
 

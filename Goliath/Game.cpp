@@ -139,28 +139,28 @@ void Game::onLoop()
 
 		if (mKeyStateMap[SDLK_UP])
 		{
-			if (isOnPlatformDown)
-			{
-				y += 25;
-			}
+			//if (isOnPlatformDown)
+			//{
+				y += SPEED; // 25
+			//}
 		}
 		if (mKeyStateMap[SDLK_LEFT])
 		{
-			if (isOnPlatformDown)
-			{
+			//if (isOnPlatformDown)
+			//{
 				x -= SPEED;
-			}
+			//}
 		}
 		if (mKeyStateMap[SDLK_DOWN])
 		{
-			//y -= SPEED;
+			y -= SPEED;
 		}
 		if (mKeyStateMap[SDLK_RIGHT])
 		{
-			if (isOnPlatformDown)
-			{
+			//if (isOnPlatformDown)
+			//{
 				x += SPEED;
-			}
+			//}
 		}
 
 		pc->setImpulse(x, y);

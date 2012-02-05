@@ -26,13 +26,15 @@ class Entity
 
         //x,y coords
         void setPosition(Vector2<float>);
-        void setPosition(float,float);
+        void setPosition(float, float);
+
+        Rectangle<float> getBoundingBox();
 
         std::string getName();
 
         //what is force for?
         void addForce(float, float);
-        void setForce(float,float);
+        void setForce(float, float);
         Vector2<float> getForce();
 
         Vector2<float> getVelocity();
@@ -60,12 +62,11 @@ class Entity
 
         float       mMass;
 
-        //Vector2 attributes
-        Vector2<float>     mDimension2D;
-        Vector2<float>     mPosition2D;
-        Vector2<float>     mForce2D;//TODO need description of purpose
-        Vector2<float>     mVelocity2D;//TODO need description of purpose
-        Vector2<float>     mImpulse2D;//TODO need description of purpose
+        Rectangle<float>   mBoundingBox;
+
+        Vector2<float>     mForce2D; // TODO need description of purpose
+        Vector2<float>     mVelocity2D; // TODO need description of purpose
+        Vector2<float>     mImpulse2D; // TODO need description of purpose
 
         friend class RenderEngine;
         friend class PhyEngine;

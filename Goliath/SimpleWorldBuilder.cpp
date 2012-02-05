@@ -57,9 +57,13 @@ World* SimpleWorldBuilder::build(void)
 	theWorld->setTile(new Tile(dirt), 21, 12);
 	theWorld->setTile(new Tile(dirt), 22, 12);
 	theWorld->setTile(new Tile(dirt), 23, 12);
+	theWorld->setTile(new Tile(dirt), 23, 13);
+	theWorld->setTile(new Tile(dirt), 23, 14);
+	theWorld->setTile(new Tile(dirt), 23, 15);
+	theWorld->setTile(new Tile(dirt), 23, 18);
 
 	// Init player character
-	Entity *pc = new Entity("player","", 50.0, 60.0, 20.0, 20.0, 100.0, false);
+	Entity *pc = new Entity("player","", 50.0, 60.0, 30.0, 30.0, 100.0, false);
 	theWorld->addEntity(pc);
 	theWorld->setPlayerEntity(pc);
 

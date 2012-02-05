@@ -13,11 +13,16 @@
 
 Entity::Entity(std::string name, std::string description, float x, float y, float w, float h, float mass, bool passable)
 {
-	mPosition2D.x = x;
-	mPosition2D.y = y;
+	//mBoundingBox(x, y, w, h);
 
-    mDimension2D.x = w;
-    mDimension2D.y = h;
+	//mPosition2D.x = x;
+	//mPosition2D.y = y;
+
+    //mDimension2D.x = w;
+    //mDimension2D.y = h;
+
+    mBoundingBox.setPosition(x, y);
+    mBoundingBox.setSize(w, h);
 
     mPassable = passable;
 
@@ -33,32 +38,32 @@ Entity::~Entity()
 
 Vector2<float> Entity::getDimensions2D()
 {
-    return mDimension2D;
+    return mBoundingBox.getDimension();
 }
 
 int Entity::getWidth()
 {
-    return mDimension2D.x;
+    return mBoundingBox.getWidth();
 }
 
 int Entity::getHeight()
 {
-    return mDimension2D.y;
+    return mBoundingBox.getHeight();
 }
 
 Vector2<float> Entity::getPosition2D()
 {
-    return mPosition2D;
+    return mBoundingBox.getPosition();
 }
 
 int Entity::getX()
 {
-    return mPosition2D.x;
+    return mBoundingBox.getLeft();
 }
 
 int Entity::getY()
 {
-    return mPosition2D.y;
+    return mBoundingBox.getBottom();
 }
 
 bool Entity::isPassable()
@@ -68,13 +73,17 @@ bool Entity::isPassable()
 
 void Entity::setPosition(Vector2<float> position)
 {
-    mPosition2D = position;
+	mBoundingBox.setPosition(position.x, position.y);
 }
 
 void Entity::setPosition(float x, float y)
 {
-    mPosition2D.x = x;
-    mPosition2D.y = y;
+	mBoundingBox.setPosition(x, y);
+}
+
+Rectangle<float> Entity::getBoundingBox()
+{
+	return mBoundingBox;
 }
 
 std::string Entity::getName()
@@ -128,22 +137,22 @@ Vector2<float> Entity::getImpulse()
 
 int Entity::top()
 {
-    return mPosition2D.y + mDimension2D.y;
+    return mBoundingBox.getTop();
 }
 
 int Entity::right()
 {
-	return mPosition2D.x + mDimension2D.x;
+	return mBoundingBox.getRight();
 }
 
 int Entity::bottom()
 {
-    return mPosition2D.y;
+    return mBoundingBox.getBottom();
 }
 
 int Entity::left()
 {
-    return mPosition2D.x;
+    return mBoundingBox.getLeft();
 }
 
 bool Entity::isOnPlatformDown(World* world)
