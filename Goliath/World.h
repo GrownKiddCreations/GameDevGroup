@@ -1,11 +1,11 @@
-#ifndef _WORLD_H
-#define _WORLD_H
-
-#include <set>
-#include <vector>
+#ifndef WORLD_H
+#define WORLD_H
 
 #include "Tile.h"
 #include "Entity.h"
+
+#include <set>
+#include <vector>
 
 class World
 {
@@ -30,7 +30,7 @@ class World
         int                                 mHeight;
         Entity*                             mPlayerEntity;
         std::vector<TileType *>             mTileTypes;
-        std::vector<std::vector<Tile*> *>*  mMatrix;
+        std::vector<std::vector<Tile*>* >   mMatrix;
         std::set<Entity *>                  mEntitySet;
 
         friend class RenderEngine;

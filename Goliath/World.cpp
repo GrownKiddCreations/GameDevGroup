@@ -17,7 +17,7 @@ World::World(int width, int height, std::vector<TileType *> &tileTypes)
     }
 
     // build world
-    mMatrix = new std::vector<std::vector<Tile*> *>();
+    //mMatrix = new std::vector<std::vector<Tile*> *>();
     for (int i = 0; i < mWidth; ++i)
     {
         std::vector<Tile*> *w = new std::vector<Tile*>();
@@ -27,7 +27,7 @@ World::World(int width, int height, std::vector<TileType *> &tileTypes)
             w->push_back(NULL);
         }
 
-        mMatrix->push_back(w);
+        mMatrix.push_back(w);
     }
 
     mPlayerEntity = NULL;
@@ -35,13 +35,35 @@ World::World(int width, int height, std::vector<TileType *> &tileTypes)
 
 World::~World()
 {
-    for (int i = 0; i < mWidth; ++i)
-    {
-        delete mMatrix->at(i);
-    }
-    delete mMatrix;
+	// clean tile-types
+	while (!mTileTypes.empty())
+	{
+		delete mTileTypes.back();
+		mTileTypes.pop_back();
+	}
 
-    // TODO: clean entities
+	// clean tiles
+    while (!mMatrix.empty())
+    {
+    	std::vector<Tile*> *w = mMatrix.back();
+
+    	while (!w->empty())
+    	{
+    		delete w->back();
+    		w->pop_back();
+    	}
+
+    	delete w;
+    	mMatrix.pop_back();
+    }
+
+    // clean entities
+    std::set<Entity *>::iterator it;
+    for (it=mEntitySet.begin(); it!=mEntitySet.end(); ++it)
+    {
+    	delete *it;
+    }
+    mEntitySet.erase(mEntitySet.begin(), mEntitySet.end());
 }
 
 int World::getWidth()
@@ -58,10 +80,10 @@ Tile* World::getTile(int x, int y)
 {
     try
     {
-        std::vector<Tile*> *v = mMatrix->at(x);
+        std::vector<Tile*> *v = mMatrix.at(x);
         try
         {
-            return mMatrix->at(x)->at(y);
+            return mMatrix.at(x)->at(y);
         }
         catch (std::out_of_range &e)
         {
@@ -75,7 +97,7 @@ Tile* World::getTile(int x, int y)
 
 void World::setTile(Tile* tile, int x, int y)
 {
-    std::vector<Tile *> * v = mMatrix->at(x);
+    std::vector<Tile *> * v = mMatrix.at(x);
     v->insert(v->begin() + y, tile);
 }
 

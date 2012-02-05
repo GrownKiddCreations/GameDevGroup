@@ -38,9 +38,9 @@ void PhyEngine::step(World* world)
 
 		entity->addForce(0.0, GRAVITY); //adding gravity
 
-		Vector2 impulse = entity->getImpulse();
-		Vector2 force = entity->getForce();
-		Vector2 velocity = entity->getVelocity();
+		Vector2<float> impulse = entity->getImpulse();
+		Vector2<float> force = entity->getForce();
+		Vector2<float> velocity = entity->getVelocity();
 
 		entity->setImpulse(0, 0); // clear
 		entity->setForce(0, 0); // clear
@@ -60,7 +60,7 @@ void PhyEngine::step(World* world)
 			velocity.makeUnit()->scale(TERMINAL_VELOCITY);
 		}
 
-		Vector2 proposedDisplacement(velocity.x, velocity.y);
+		Vector2<float> proposedDisplacement(velocity.x, velocity.y);
 
 		if (entity->isOnPlatformDown(world) && proposedDisplacement.y <= 0)
 		{
@@ -68,8 +68,8 @@ void PhyEngine::step(World* world)
 			proposedDisplacement.y = 0;
 		}
 
-		Vector2 currentPosition = entity->mPosition2D;
-		Vector2 finalPosition = entity->mPosition2D;
+		Vector2<float> currentPosition = entity->mPosition2D;
+		Vector2<float> finalPosition = entity->mPosition2D;
 
 		Tile *tile = NULL;
 

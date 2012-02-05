@@ -151,10 +151,10 @@ void Game::onLoop()
 				x -= SPEED;
 			}
 		}
-		/*if (mKeyStateMap[SDLK_DOWN])
+		if (mKeyStateMap[SDLK_DOWN])
 		{
-			y -= SPEED;
-		}*/
+			//y -= SPEED;
+		}
 		if (mKeyStateMap[SDLK_RIGHT])
 		{
 			if (isOnPlatformDown)

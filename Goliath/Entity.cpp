@@ -11,10 +11,14 @@
 #include "Tile.h"
 #include "Vector2.h"
 
-Entity::Entity(std::string description, std::string filename, Vector2 size, Vector2 position, float mass, bool passable)
+Entity::Entity(std::string name, std::string description, float x, float y, float w, float h, float mass, bool passable)
 {
-    mDimension2D = size;
-    mPosition2D = position;
+	mPosition2D.x = x;
+	mPosition2D.y = y;
+
+    mDimension2D.x = w;
+    mDimension2D.y = h;
+
     mPassable = passable;
 
     mName = description;//this is temporary until I figure a better way around; describes enemy vs player
@@ -27,7 +31,7 @@ Entity::~Entity()
 
 }
 
-Vector2 Entity::getDimensions2D()
+Vector2<float> Entity::getDimensions2D()
 {
     return mDimension2D;
 }
@@ -42,7 +46,7 @@ int Entity::getHeight()
     return mDimension2D.y;
 }
 
-Vector2 Entity::getPosition2D()
+Vector2<float> Entity::getPosition2D()
 {
     return mPosition2D;
 }
@@ -62,7 +66,7 @@ bool Entity::isPassable()
     return mPassable;
 }
 
-void Entity::setPosition(Vector2 position)
+void Entity::setPosition(Vector2<float> position)
 {
     mPosition2D = position;
 }
@@ -90,17 +94,17 @@ void Entity::setForce(float x, float y)
 	mForce2D.y = y;
 }
 
-Vector2 Entity::getForce()
+Vector2<float> Entity::getForce()
 {
 	return mForce2D;
 }
 
-Vector2 Entity::getVelocity()
+Vector2<float> Entity::getVelocity()
 {
 	return mVelocity2D;
 }
 
-Vector2 Entity::setVelocity(float x, float y)
+void Entity::setVelocity(float x, float y)
 {
 	mVelocity2D.x = x;
 	mVelocity2D.y = y;
@@ -117,7 +121,7 @@ void Entity::setImpulse(float xd, float yd)
 	mImpulse2D.y = yd;
 }
 
-Vector2 Entity::getImpulse()
+Vector2<float> Entity::getImpulse()
 {
 	return mImpulse2D;
 }
@@ -175,3 +179,4 @@ bool Entity::isOnPlatformDown(World* world)
 
 	return false;
 }
+
