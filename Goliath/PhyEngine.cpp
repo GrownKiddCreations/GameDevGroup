@@ -25,7 +25,7 @@ void PhyEngine::step(World* world)
      * 2.
      */
 
-    const float GRAVITY = -13;//gravity constant
+    const float GRAVITY = -25;//gravity constant
 	const int WORLD_LIMIT_X = world->getWidth() * TILE_SIZE;//TODO explanation needed
 	const int WORLD_LIMIT_Y = world->getHeight() * TILE_SIZE;//TODO explanation needed
 

@@ -134,7 +134,7 @@ void Game::onLoop()
 		float x = 0.0f, y = 0.0f;
 
 		const float SPEED = 0.7f;
-		const float JUMP_SPEED = 25.0f;
+		const float JUMP_SPEED = 30.0f;
 
 		bool isOnPlatformDown = pc->isOnPlatformDown(mCurrentWorld);
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include "World.h"
 
-const int TERMINAL_VELOCITY = 10;
+const int TERMINAL_VELOCITY = 20;
 
 class PhyEngine
 {
