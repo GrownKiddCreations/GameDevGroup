@@ -16,6 +16,7 @@ class RenderEngine
         void renderEntity(Entity *being);
         void RenderEntities();
         void renderWorld(World *world); // FIXME
+        void centerView(World *world);
         
     private:
         int mWindowWidth, mWindowHeight;

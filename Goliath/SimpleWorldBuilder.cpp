@@ -7,6 +7,8 @@
 
 #include "SimpleWorldBuilder.h"
 
+#include <stdlib.h>
+
 SimpleWorldBuilder::SimpleWorldBuilder(int width, int height)
 {
 	setSize(width, height);
@@ -40,27 +42,37 @@ World* SimpleWorldBuilder::build(void)
 		}
 	}
 
-	theWorld->setTile(new Tile(dirt), 5, 6);
-	theWorld->setTile(new Tile(dirt), 6, 6);
-	theWorld->setTile(new Tile(dirt), 7, 6);
-	theWorld->setTile(new Tile(dirt), 8, 6);
-	theWorld->setTile(new Tile(dirt), 9, 6);
+	for (int i = 0; i < mWidth / 8; ++i)
+	{
+		if (i % 2 == 0)
+		{
+			int base = i * 8;
+			int height = (rand() % 3) + 5;
 
-	theWorld->setTile(new Tile(dirt), 12, 9);
-	theWorld->setTile(new Tile(dirt), 13, 9);
-	theWorld->setTile(new Tile(dirt), 14, 9);
-	theWorld->setTile(new Tile(dirt), 15, 9);
-	theWorld->setTile(new Tile(dirt), 16, 9);
+			int length = (rand() % 3) + 4;
 
-	theWorld->setTile(new Tile(dirt), 19, 12);
-	theWorld->setTile(new Tile(dirt), 20, 12);
-	theWorld->setTile(new Tile(dirt), 21, 12);
-	theWorld->setTile(new Tile(dirt), 22, 12);
-	theWorld->setTile(new Tile(dirt), 23, 12);
-	theWorld->setTile(new Tile(dirt), 23, 13);
-	theWorld->setTile(new Tile(dirt), 23, 14);
-	theWorld->setTile(new Tile(dirt), 23, 15);
-	theWorld->setTile(new Tile(dirt), 23, 18);
+			for (int j = 0; j < length; ++j)
+			{
+				theWorld->setTile(new Tile(dirt), base + j , height);
+			}
+		}
+	}
+
+	for (int i = 0; i < mWidth / 12; ++i)
+	{
+		if (i % 2 == 0)
+		{
+			int base = i * 12;
+			int height = (rand() % 3) + 10;
+
+			int length = (rand() % 3) + 4;
+
+			for (int j = 0; j < length; ++j)
+			{
+				theWorld->setTile(new Tile(dirt), base + j , height);
+			}
+		}
+	}
 
 	// Init player character
 	Entity *pc = new Entity("player","", 50.0, 60.0, 30.0, 30.0, 100.0, false);

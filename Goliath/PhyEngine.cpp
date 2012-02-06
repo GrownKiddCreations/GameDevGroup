@@ -36,7 +36,7 @@ void PhyEngine::step(World* world)
 	{
 		Entity *entity = *iter;
 
-		//entity->addForce(0.0, GRAVITY); //adding gravity
+		entity->addForce(0.0, GRAVITY); //adding gravity
 
 		Vector2<float> impulse = entity->getImpulse();
 		Vector2<float> force = entity->getForce();

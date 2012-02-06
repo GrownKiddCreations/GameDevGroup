@@ -7,8 +7,8 @@
 #include <GL/glew.h>
 
 
-const int X_TILES = 33;//width...
-const int Y_TILES = 25;//height...
+const int X_TILES = 120;//width...
+const int Y_TILES = 50;//height...
 //tiles are 20 X 20 px
 
 //TODO create an initializer for a list of elements/entities
@@ -134,33 +134,37 @@ void Game::onLoop()
 		float x = 0.0f, y = 0.0f;
 
 		const float SPEED = 0.7f;
+		const float JUMP_SPEED = 25.0f;
 
 		bool isOnPlatformDown = pc->isOnPlatformDown(mCurrentWorld);
 
 		if (mKeyStateMap[SDLK_UP])
 		{
-			//if (isOnPlatformDown)
-			//{
-				y += SPEED; // 25
-			//}
+			if (isOnPlatformDown)
+			{
+				y += JUMP_SPEED;
+			}
 		}
 		if (mKeyStateMap[SDLK_LEFT])
 		{
-			//if (isOnPlatformDown)
-			//{
+			if (isOnPlatformDown)
+			{
 				x -= SPEED;
-			//}
+			}
 		}
 		if (mKeyStateMap[SDLK_DOWN])
 		{
-			y -= SPEED;
+			if (isOnPlatformDown)
+			{
+				y -= SPEED;
+			}
 		}
 		if (mKeyStateMap[SDLK_RIGHT])
 		{
-			//if (isOnPlatformDown)
-			//{
+			if (isOnPlatformDown)
+			{
 				x += SPEED;
-			//}
+			}
 		}
 
 		pc->setImpulse(x, y);
@@ -177,7 +181,10 @@ void Game::onRender()
     //mRenderEngine.RenderWorld(*(entityList.begin()));
 
     if (mCurrentWorld != NULL)
+    {
+    	mRenderEngine.centerView(mCurrentWorld);
         mRenderEngine.renderWorld(mCurrentWorld);
+    }
 
     SDL_GL_SwapBuffers();
 }

@@ -63,6 +63,7 @@ void RenderEngine::initCamera()
     glOrtho(0, mViewportWidth, 0, mViewportHeight, 1, -1);//SDL works with a top-left origin so top and bottom must be swapped
 
     glMatrixMode(GL_MODELVIEW);
+
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity();
 }
@@ -89,6 +90,55 @@ void RenderEngine::renderEntity(Entity *being)
     glTexCoord2d(1,1); glVertex2d(being->getX() + being->getWidth(), being->getY() + being->getHeight());
     glTexCoord2d(0,1); glVertex2d(being->getX(), being->getY() + being->getHeight());
     glEnd();*/
+}
+
+void RenderEngine::centerView(World *world)
+{
+	Entity *pc = world->getPlayerEntity();
+	if (pc != NULL)
+	{
+		const int world_limit_x = world->getWidth() * TILE_SIZE;
+		const int world_limit_y = world->getHeight() * TILE_SIZE;
+
+		float mid_x = 0.0;
+		float mid_y = 0.0;
+
+		if (mWindowWidth < world_limit_x)
+		{
+			mid_x = pc->getX() + (pc->getWidth() / 2) - (mWindowWidth / 2);
+
+
+			if (mid_x < 0)
+				mid_x = 0;
+
+			if (mid_x + mWindowWidth > world_limit_x)
+				mid_x = world_limit_x - mWindowWidth;
+		}
+		else
+		{
+			float diff = world_limit_x - mWindowWidth;
+			mid_x =  diff / 2;
+		}
+
+		if (mWindowHeight < world_limit_y)
+		{
+			mid_y = pc->getY() + (pc->getHeight() / 2) - (mWindowHeight / 2);
+
+
+			if (mid_y < 0)
+				mid_y = 0;
+
+			if (mid_y + mWindowHeight > world_limit_y)
+				mid_y = world_limit_y - mWindowHeight;
+		}
+		else
+		{
+			float diff = world_limit_y - mWindowHeight;
+			mid_y =  diff / 2;
+		}
+
+		glTranslatef(mid_x * -1, mid_y * -1, 0.0);
+	}
 }
 
 void RenderEngine::renderWorld(World *world)
