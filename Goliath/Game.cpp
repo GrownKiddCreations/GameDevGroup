@@ -138,6 +138,8 @@ void Game::onLoop()
 
 		bool isOnPlatformDown = pc->isOnPlatformDown(mCurrentWorld);
 
+		//FIXME this belongs in eventhandler...
+		//switch/case would be more appropriate I think -Bill
 		if (mKeyStateMap[SDLK_UP])
 		{
 			if (isOnPlatformDown)

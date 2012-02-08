@@ -21,7 +21,7 @@ PhyEngine::~PhyEngine(void)
 void PhyEngine::step(World* world)
 {
     /*TODO
-     * 1.For each entity in the list we need to adjust the gravity on a continually updating basis and institute terminal velocity
+     * 1.For each entity in the list we need to adjust the gravity on a continually updating basis(constant change ie 9.8(m/s)^2)  and institute terminal velocity
      * 2.
      */
 

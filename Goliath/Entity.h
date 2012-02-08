@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "Rectangle.h"
 #include "Vector2.h"
+#include "Rectangle.h"
 
 class World;
 

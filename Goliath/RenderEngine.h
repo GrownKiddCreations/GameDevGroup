@@ -15,7 +15,7 @@ class RenderEngine
 		void initCamera();
         void renderEntity(Entity *being);
         void RenderEntities();
-        void renderWorld(World *world); // FIXME
+        void renderWorld(World *world); // FIXME fix what?
         void centerView(World *world);
         
     private:
