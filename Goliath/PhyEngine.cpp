@@ -9,6 +9,8 @@
 #include "Vector2.h"
 #include "PhyEngine.h"
 
+const int TL = 0, BL = 1, BR = 2, TR = 3, X_ELM = 0, Y_ELM = 1;
+
 PhyEngine::PhyEngine()
 {
 
@@ -22,14 +24,15 @@ void PhyEngine::step(World* world)
 {
     /*TODO
      * 1.For each entity in the list we need to adjust the gravity on a continually updating basis(constant change ie 9.8(m/s)^2)  and institute terminal velocity
-     * 2.
+     * 2.Slow horizontal movement down
+     * 3.when jumping: speed moving "up" is much faster than while "falling"
      */
 
-    const float GRAVITY = -25;//gravity constant
-	const int WORLD_LIMIT_X = world->getWidth() * TILE_SIZE;//TODO explanation needed
-	const int WORLD_LIMIT_Y = world->getHeight() * TILE_SIZE;//TODO explanation needed
+    const float     GRAVITY = -25;//gravity constant
+	const int       WORLD_LIMIT_X = world->getWidth() * TILE_SIZE;//TODO explanation needed
+	const int       WORLD_LIMIT_Y = world->getHeight() * TILE_SIZE;//TODO explanation needed
 
-	const float damping_coefficient = 0.04; // terrain types will need to have their own damping
+	const float     damping_coefficient = 0.04; // terrain types will need to have their own damping
 
 	std::set<Entity *>::iterator iter;
 	for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
@@ -54,7 +57,7 @@ void PhyEngine::step(World* world)
 
 		velocity.scale(1.0 - damping_coefficient);//TODO explanation needed
 
-		// enforce terminal velocity. TODO: rather use dampening
+		//TODO dampen decent; distance to small for terminal velocity
 		if (velocity.magnitude() > TERMINAL_VELOCITY)
 		{
 			velocity.makeUnit()->scale(TERMINAL_VELOCITY);
@@ -73,35 +76,34 @@ void PhyEngine::step(World* world)
 
 		Tile *tile = NULL;
 
-		int currentBox[4][2];//TODO explanation needed
-		int finalBox[4][2];//TODO explanation needed
+		int currentBox[4][2];//4 arrays of 2 elements
+		int finalBox[4][2];//4 arrays of 2 elements
 
-		//FIXME what are these letters?!?!
-		// tl
-		currentBox[0][0] = (currentPosition.x) / TILE_SIZE;
-		currentBox[0][1] = (currentPosition.y + entity->getHeight()) / TILE_SIZE;
-		// bl
-		currentBox[1][0] = (currentPosition.x) / TILE_SIZE;
-		currentBox[1][1] = (currentPosition.y) / TILE_SIZE;
-		// br
-		currentBox[2][0] = (currentPosition.x + entity->getWidth()) / TILE_SIZE;
-		currentBox[2][1] = (currentPosition.y) / TILE_SIZE;
-		// tr
-		currentBox[3][0] = (currentPosition.x + entity->getWidth()) / TILE_SIZE;
-		currentBox[3][1] = (currentPosition.y + entity->getHeight()) / TILE_SIZE;
+		// topleft
+		currentBox[TL][X_ELM] = (currentPosition.x) / TILE_SIZE;
+		currentBox[TL][Y_ELM] = (currentPosition.y + entity->getHeight()) / TILE_SIZE;
+		// bottomleft
+		currentBox[BL][X_ELM] = (currentPosition.x) / TILE_SIZE;
+		currentBox[BL][Y_ELM] = (currentPosition.y) / TILE_SIZE;
+		// bottomright
+		currentBox[BR][X_ELM] = (currentPosition.x + entity->getWidth()) / TILE_SIZE;
+		currentBox[BR][Y_ELM] = (currentPosition.y) / TILE_SIZE;
+		// topright
+		currentBox[TR][X_ELM] = (currentPosition.x + entity->getWidth()) / TILE_SIZE;
+		currentBox[TR][Y_ELM] = (currentPosition.y + entity->getHeight()) / TILE_SIZE;
 
-		// tl
-		finalBox[0][0] = (currentPosition.x + proposedDisplacement.x) / TILE_SIZE;
-		finalBox[0][1] = (currentPosition.y + proposedDisplacement.y + entity->getHeight()) / TILE_SIZE;
-		// bl
-		finalBox[1][0] = (currentPosition.x + proposedDisplacement.x) / TILE_SIZE;
-		finalBox[1][1] = (currentPosition.y + proposedDisplacement.y) / TILE_SIZE;
-		// br
-		finalBox[2][0] = (currentPosition.x + proposedDisplacement.x + entity->getWidth()) / TILE_SIZE;
-		finalBox[2][1] = (currentPosition.y + proposedDisplacement.y) / TILE_SIZE;
-		// tr
-		finalBox[3][0] = (currentPosition.x + proposedDisplacement.x + entity->getWidth()) / TILE_SIZE;
-		finalBox[3][1] = (currentPosition.y + proposedDisplacement.y + entity->getHeight()) / TILE_SIZE;
+		// topleft
+		finalBox[TL][X_ELM] = (currentPosition.x + proposedDisplacement.x) / TILE_SIZE;
+		finalBox[TL][Y_ELM] = (currentPosition.y + proposedDisplacement.y + entity->getHeight()) / TILE_SIZE;
+		// bottomleft
+		finalBox[BL][X_ELM] = (currentPosition.x + proposedDisplacement.x) / TILE_SIZE;
+		finalBox[BL][Y_ELM] = (currentPosition.y + proposedDisplacement.y) / TILE_SIZE;
+		// bottomright
+		finalBox[BR][X_ELM] = (currentPosition.x + proposedDisplacement.x + entity->getWidth()) / TILE_SIZE;
+		finalBox[BR][Y_ELM] = (currentPosition.y + proposedDisplacement.y) / TILE_SIZE;
+		// topright
+		finalBox[TR][X_ELM] = (currentPosition.x + proposedDisplacement.x + entity->getWidth()) / TILE_SIZE;
+		finalBox[TR][Y_ELM] = (currentPosition.y + proposedDisplacement.y + entity->getHeight()) / TILE_SIZE;
 
 		finalPosition.x += proposedDisplacement.x;
 		finalPosition.y += proposedDisplacement.y;
@@ -157,16 +159,16 @@ void PhyEngine::step(World* world)
 		// left
 		if (left)
 		{
-			if (currentBox[0][0] != finalBox[0][0])
+			if (currentBox[TL][X_ELM] != finalBox[TL][X_ELM])
 			{
-				int entity_tiles_vertical = finalBox[0][1] - finalBox[1][1] + 1;
+				int entity_tiles_vertical = finalBox[TL][Y_ELM] - finalBox[BL][Y_ELM] + 1;//what is entity_tiles_vertical? number of tiles contained within entity?
 
 				for (int i = 0; i < entity_tiles_vertical; ++i)
 				{
-					tile = world->getTile(finalBox[0][0], finalBox[0][1] - i);
+					tile = world->getTile(finalBox[TL][X_ELM], finalBox[TL][Y_ELM] - i);
 					if (tile != NULL && !tile->getType()->isPassable())
 					{
-						finalPosition.x = (finalBox[0][0] * TILE_SIZE) + TILE_SIZE + 1;
+						finalPosition.x = (finalBox[TL][X_ELM] * TILE_SIZE) + TILE_SIZE + 1;
 						velocity.x = 0;
 						break;
 					}
@@ -177,18 +179,18 @@ void PhyEngine::step(World* world)
 		// right
 		else if (right)
 		{
-			if (currentBox[3][0] != finalBox[3][0])
+			if (currentBox[TR][X_ELM] != finalBox[TR][X_ELM])
 			{
-				int entity_tiles_vertical = finalBox[0][1] - finalBox[1][1] + 1;
+				int entity_tiles_vertical = finalBox[TL][Y_ELM] - finalBox[BL][Y_ELM] + 1;
 
 				for (int i = 0; i < entity_tiles_vertical; ++i)
 				{
 					try
 					{
-						tile = world->getTile(finalBox[3][0], finalBox[3][1] - i);
+						tile = world->getTile(finalBox[TR][X_ELM], finalBox[TR][Y_ELM] - i);
 						if (tile != NULL && !tile->getType()->isPassable())
 						{
-							finalPosition.x = (finalBox[3][0] * TILE_SIZE) - entity->getWidth() - 1;
+							finalPosition.x = (finalBox[TR][X_ELM] * TILE_SIZE) - entity->getWidth() - 1;
 							velocity.x = 0;
 							break;
 						}
@@ -205,18 +207,18 @@ void PhyEngine::step(World* world)
 		// up
 		if (up)
 		{
-			if (currentBox[0][1] != finalBox[0][1])
+			if (currentBox[TL][Y_ELM] != finalBox[TL][Y_ELM])
 			{
-				int entity_tiles_horizontal = finalBox[3][0] - finalBox[0][0] + 1;
+				int entity_tiles_horizontal = finalBox[TR][X_ELM] - finalBox[TL][X_ELM] + 1;
 
 				for (int i = 0; i < entity_tiles_horizontal; ++i)
 				{
 					try
 					{
-						tile = world->getTile(finalBox[3][0] - i, finalBox[3][1]);
+						tile = world->getTile(finalBox[TR][X_ELM] - i, finalBox[TR][Y_ELM]);
 						if (tile != NULL && !tile->getType()->isPassable())
 						{
-							finalPosition.y = (finalBox[3][1] * TILE_SIZE) - entity->getHeight() - 1;
+							finalPosition.y = (finalBox[TR][Y_ELM] * TILE_SIZE) - entity->getHeight() - 1;
 							velocity.y = 0;
 							break;
 						}
@@ -232,16 +234,16 @@ void PhyEngine::step(World* world)
 		// down
 		else if (down)
 		{
-			if (currentBox[1][1] != finalBox[1][1])
+			if (currentBox[BL][Y_ELM] != finalBox[BL][Y_ELM])
 			{
-				int entity_tiles_horizontal = finalBox[3][0] - finalBox[0][0] + 1;
+				int entity_tiles_horizontal = finalBox[TR][X_ELM] - finalBox[TL][X_ELM] + 1;
 
 				for (int i = 0; i < entity_tiles_horizontal; ++i)
 				{
-					tile = world->getTile(finalBox[3][0] - i, finalBox[1][1]);
+					tile = world->getTile(finalBox[TR][X_ELM] - i, finalBox[BL][Y_ELM]);
 					if (tile != NULL && !tile->getType()->isPassable())
 					{
-						finalPosition.y = (finalBox[1][1] * TILE_SIZE) + TILE_SIZE;
+						finalPosition.y = (finalBox[BL][Y_ELM] * TILE_SIZE) + TILE_SIZE;
 						velocity.y = 0;
 						break;
 					}
