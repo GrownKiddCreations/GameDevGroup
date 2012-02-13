@@ -1,10 +1,11 @@
 
 #include "TileType.h"
 
-TileType::TileType(std::string name, bool isPassable)
+TileType::TileType(std::string name, bool isPassable, bool isCloud)
 {
 	mName = name;
 	mIsPassable = isPassable;
+	mIsCloud = isCloud;
 }
 
 TileType::~TileType()
@@ -21,3 +22,9 @@ bool TileType::isPassable()
 {
 	return mIsPassable;
 }
+
+bool TileType::isCloud()
+{
+	return mIsCloud;
+}
+

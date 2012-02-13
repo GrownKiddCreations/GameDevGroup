@@ -133,43 +133,67 @@ void Game::onLoop()
     {
 		float x = 0.0f, y = 0.0f;
 
-		const float SPEED = 0.7f;
-		const float JUMP_SPEED = 30.0f;
+		const float JUMP_IMPULSE = 12.0f;
 
-		bool isOnPlatformDown = pc->isOnPlatformDown(mCurrentWorld);
+		const float WALK_SPEED = 4.0f;
+		const float COAST_SPEED = 1.0f;
 
-		//FIXME this belongs in eventhandler...
-		//switch/case would be more appropriate I think -Bill
+		// determine if PC is standing on something solid
+		bool isOnPlatformDown = pc->isOnPlatformDown(mCurrentWorld, true, true);
+
+		// determine if PC is standing on a cloud type tile
+		// FIXME: we are calling the same method twice per frame -investigate ways of doing this once only
+		bool isOnCloud = pc->isOnPlatformDown(mCurrentWorld, false, true);
+
+		// current velocity
+		Vector2<float> vel = pc->getVelocity();
+
+		// switch/case would be more appropriate I think -Bill
 		if (mKeyStateMap[SDLK_UP])
 		{
+			// if PC is standing on something solid, he/she is able to jump
 			if (isOnPlatformDown)
 			{
-				y += JUMP_SPEED;
+				y += JUMP_IMPULSE;
 			}
 		}
 		if (mKeyStateMap[SDLK_LEFT])
 		{
-			if (isOnPlatformDown)
+			// if standing on something solid, set velocity to walk speed left
+			if (isOnPlatformDown && !mKeyStateMap[SDLK_RIGHT])
 			{
-				x -= SPEED;
+				vel.x = -WALK_SPEED;
+			}
+			// change speed in mid-air
+			else
+			{
+				vel.x = -COAST_SPEED;
 			}
 		}
 		if (mKeyStateMap[SDLK_DOWN])
 		{
-			if (isOnPlatformDown)
+			if (isOnCloud) // TODO: need to make sure entity is not partially standing on something solid
 			{
-				y -= SPEED;
+				// drop 1 unit below so that PC falls off the cloud
+				pc->setPositionY(pc->getPosition2D().y - 1);
 			}
 		}
 		if (mKeyStateMap[SDLK_RIGHT])
 		{
-			if (isOnPlatformDown)
+			// if standing on something solid, set velocity to walk speed right
+			if (isOnPlatformDown && !mKeyStateMap[SDLK_LEFT])
 			{
-				x += SPEED;
+				vel.x = WALK_SPEED;
+			}
+			// change speed in mid-air
+			else
+			{
+				vel.x = COAST_SPEED;
 			}
 		}
 
 		pc->setImpulse(x, y);
+		pc->setVelocity(vel.x, vel.y);
     }
 
     mPhyEngine.step(mCurrentWorld);

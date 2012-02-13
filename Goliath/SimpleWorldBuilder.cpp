@@ -23,14 +23,18 @@ World* SimpleWorldBuilder::build(void)
 {
 	std::vector<TileType *> tileTypes;
 
-	TileType* air = new TileType("AIR", true);
-	TileType* dirt = new TileType("DIRT", false);
+	// create set of tile types used in this world
+	TileType* air = new TileType("AIR", true, false);
+	TileType* dirt = new TileType("DIRT", false, false);
+	TileType* cloud = new TileType("CLOUD", true, true);
 
 	tileTypes.push_back(air);
 	tileTypes.push_back(dirt);
+	tileTypes.push_back(cloud);
 
 	World *theWorld =  new World(mWidth, mHeight, tileTypes);
 
+	// ground
 	for (int i = 0; i < theWorld->getWidth(); ++i)
 	{
 		for (int j = 0; j < theWorld->getHeight(); ++j)
@@ -42,39 +46,26 @@ World* SimpleWorldBuilder::build(void)
 		}
 	}
 
-	for (int i = 0; i < mWidth / 8; ++i)
+	// generate some clouds
+	for (int i = 0; i < mWidth / 16; ++i)
 	{
 		if (i % 2 == 0)
 		{
-			int base = i * 8;
-			int height = (rand() % 3) + 5;
+			int base = i * 16;
+			int height = (rand() % 5) + 5;
 
-			int length = (rand() % 3) + 4;
+			int length = (rand() % 4) + 8;
+
+			theWorld->setTile(new Tile(cloud), base , height);
 
 			for (int j = 0; j < length; ++j)
 			{
-				theWorld->setTile(new Tile(dirt), base + j , height);
+				theWorld->setTile(new Tile(cloud), base + j , height);
 			}
 		}
 	}
 
-	for (int i = 0; i < mWidth / 12; ++i)
-	{
-		if (i % 2 == 0)
-		{
-			int base = i * 12;
-			int height = (rand() % 3) + 10;
-
-			int length = (rand() % 3) + 4;
-
-			for (int j = 0; j < length; ++j)
-			{
-				theWorld->setTile(new Tile(dirt), base + j , height);
-			}
-		}
-	}
-
-	// Init player character
+	// create player character
 	Entity *pc = new Entity("player","", 50.0, 60.0, 30.0, 30.0, 100.0, false);
 	theWorld->addEntity(pc);
 	theWorld->setPlayerEntity(pc);

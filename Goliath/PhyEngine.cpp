@@ -39,7 +39,7 @@ void PhyEngine::step(World* world)
 	{
 		Entity *entity = *iter;
 
-		entity->addForce(0.0, GRAVITY); //adding gravity
+		entity->addForce(0.0, GRAVITY); // apply gravity to entity
 
 		Vector2<float> impulse = entity->getImpulse();
 		Vector2<float> force = entity->getForce();
@@ -48,13 +48,14 @@ void PhyEngine::step(World* world)
 		entity->setImpulse(0, 0); // clear
 		entity->setForce(0, 0); // clear
 
-		// f = ma
+		// f = ma - One of Newton's laws
 		velocity.x += (force.x / entity->getMass());
 		velocity.y += (force.y / entity->getMass());
 
 		velocity.x += impulse.x;
 		velocity.y += impulse.y;
 
+		// apply the effects of friction to the velocity
 		velocity.scale(1.0 - damping_coefficient);//TODO explanation needed
 
 		//TODO dampen decent; distance to small for terminal velocity
@@ -63,17 +64,25 @@ void PhyEngine::step(World* world)
 			velocity.makeUnit()->scale(TERMINAL_VELOCITY);
 		}
 
+		// the proposed next position for this entity
 		Vector2<float> proposedDisplacement(velocity.x, velocity.y);
 
-		if (entity->isOnPlatformDown(world) && proposedDisplacement.y <= 0)
+		// do not hit the ground if entity is already on the ground
+		if (entity->isOnPlatformDown(world, true, true) && proposedDisplacement.y <= 0)
 		{
 			velocity.y = 0;
 			proposedDisplacement.y = 0;
 		}
 
+		/*
+		 * This algorithm works by getting the current and final entity positions. The final
+		 * position must be validated and, if necessary, corrected to make sure it fits
+		 * within the collision constraints.
+		 */
 		Vector2<float> currentPosition = entity->getPosition2D();
 		Vector2<float> finalPosition = entity->getPosition2D();
 
+		// Holder pointer for tiles
 		Tile *tile = NULL;
 
 		int currentBox[4][2];//4 arrays of 2 elements
@@ -130,24 +139,28 @@ void PhyEngine::step(World* world)
 		}
 
 		// enforce world bounds
+		// if entity is off the left side of the world
 		if (finalPosition.x < 0)
 		{
 			finalPosition.x = 0;
 			velocity.x = 0;
 		}
 
+		// if entity is off the bottom of the world
 		if (finalPosition.y < 0)
 		{
 			finalPosition.y = 0;
 			velocity.y = 0;
 		}
 
+		// if entity is off the right side of the world
 		if (finalPosition.x + entity->getWidth() > WORLD_LIMIT_X)
 		{
 			finalPosition.x = WORLD_LIMIT_X - entity->getWidth();
 			velocity.x = 0;
 		}
 
+		// if entity is off the top of the world
 		if (finalPosition.y + entity->getHeight() > WORLD_LIMIT_Y)
 		{
 			finalPosition.y = WORLD_LIMIT_Y - entity->getHeight();
@@ -241,7 +254,7 @@ void PhyEngine::step(World* world)
 				for (int i = 0; i < entity_tiles_horizontal; ++i)
 				{
 					tile = world->getTile(finalBox[TR][X_ELM] - i, finalBox[BL][Y_ELM]);
-					if (tile != NULL && !tile->getType()->isPassable())
+					if (tile != NULL && (!tile->getType()->isPassable() || tile->getType()->isCloud()))
 					{
 						finalPosition.y = (finalBox[BL][Y_ELM] * TILE_SIZE) + TILE_SIZE;
 						velocity.y = 0;

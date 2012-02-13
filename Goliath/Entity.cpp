@@ -81,6 +81,16 @@ void Entity::setPosition(float x, float y)
 	mBoundingBox.setPosition(x, y);
 }
 
+void Entity::setPositionX(float x)
+{
+	mBoundingBox.setX(x);
+}
+
+void Entity::setPositionY(float y)
+{
+	mBoundingBox.setY(y);
+}
+
 Rectangle<float> Entity::getBoundingBox()
 {
 	return mBoundingBox;
@@ -116,6 +126,16 @@ Vector2<float> Entity::getVelocity()
 void Entity::setVelocity(float x, float y)
 {
 	mVelocity2D.x = x;
+	mVelocity2D.y = y;
+}
+
+void Entity::setVelocityX(float x)
+{
+	mVelocity2D.x = x;
+}
+
+void Entity::setVelocityY(float y)
+{
 	mVelocity2D.y = y;
 }
 
@@ -155,7 +175,7 @@ int Entity::left()
     return mBoundingBox.getLeft();
 }
 
-bool Entity::isOnPlatformDown(World* world)
+bool Entity::isOnPlatformDown(World* world, bool testPassable, bool testCloud)
 {
 	int bounds[4][2];
 
@@ -179,7 +199,7 @@ bool Entity::isOnPlatformDown(World* world)
 		for (int i = 0; i < tiles_horizontal; ++i)
 		{
 			tile = world->getTile(bounds[2][0] - i, bounds[2][1] - 1);
-			if (tile != NULL && !tile->getType()->isPassable())
+			if (tile != NULL && ((!tile->getType()->isPassable()) || (tile->getType()->isCloud())))
 			{
 				return true;
 			}
@@ -188,4 +208,3 @@ bool Entity::isOnPlatformDown(World* world)
 
 	return false;
 }
-

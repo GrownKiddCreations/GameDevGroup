@@ -8,15 +8,17 @@ class TileType
 {
 
 	public:
-		TileType(std::string, bool);
+		TileType(std::string, bool, bool);
         ~TileType();
 	
 		std::string getName();	
 		bool isPassable();
+		bool isCloud();
 	
 	private:
 		std::string mName;
 		bool mIsPassable;
+		bool mIsCloud;
 	
 };
 

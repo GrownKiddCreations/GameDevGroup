@@ -18,6 +18,8 @@ RenderEngine::RenderEngine(void)
 {
     mWindowWidth = 640;
     mWindowHeight = 480;
+    mOffsetX = 0;
+    mOffsetY = 0;
 }
 
 RenderEngine::RenderEngine(int windowWidth, int windowHeight, int viewportWidth,
@@ -27,6 +29,8 @@ RenderEngine::RenderEngine(int windowWidth, int windowHeight, int viewportWidth,
     mWindowHeight = windowHeight;
     mViewportWidth = viewportWidth;
     mViewportHeight = viewportHeight;
+    mOffsetX = 0;
+    mOffsetY = 0;
 }
 
 RenderEngine::~RenderEngine(void)
@@ -80,72 +84,81 @@ void RenderEngine::renderEntity(Entity *being)
     }
 
     glRectf(being->getX(), being->getY(), being->getX() + being->getWidth(), being->getY() + being->getHeight());
-    
-    /* Not a good idea to load the texture at every loop */
-    /*being->getTexture()->load(false);
-    being->getTexture()->bind();
-    glBegin(GL_QUADS);
-    glTexCoord2d(0,0); glVertex2d(being->getX(), being->getY());
-    glTexCoord2d(1,0); glVertex2d(being->getX() + being->getWidth(), being->getY());
-    glTexCoord2d(1,1); glVertex2d(being->getX() + being->getWidth(), being->getY() + being->getHeight());
-    glTexCoord2d(0,1); glVertex2d(being->getX(), being->getY() + being->getHeight());
-    glEnd();*/
 }
 
 void RenderEngine::centerView(World *world)
 {
+	// view is centered around the player character, so we get that first
 	Entity *pc = world->getPlayerEntity();
 	if (pc != NULL)
 	{
 		const int world_limit_x = world->getWidth() * TILE_SIZE;
 		const int world_limit_y = world->getHeight() * TILE_SIZE;
 
-		float mid_x = 0.0;
-		float mid_y = 0.0;
+		// the amount by which we will shift the view from origin
+		float x_mod = 0.0;
+		float y_mod = 0.0;
 
+		// if window width is smaller than world width
 		if (mWindowWidth < world_limit_x)
 		{
-			mid_x = pc->getX() + (pc->getWidth() / 2) - (mWindowWidth / 2);
+			x_mod = pc->getX() + (pc->getWidth() / 2) - (mWindowWidth / 2);
 
+			if (x_mod < 0)
+				x_mod = 0;
 
-			if (mid_x < 0)
-				mid_x = 0;
-
-			if (mid_x + mWindowWidth > world_limit_x)
-				mid_x = world_limit_x - mWindowWidth;
+			if (x_mod + mWindowWidth > world_limit_x)
+				x_mod = world_limit_x - mWindowWidth;
 		}
+		// else center the world within the window
 		else
 		{
 			float diff = world_limit_x - mWindowWidth;
-			mid_x =  diff / 2;
+			x_mod =  diff / 2;
 		}
 
+
+		// check if window height is smaller than world height
 		if (mWindowHeight < world_limit_y)
 		{
-			mid_y = pc->getY() + (pc->getHeight() / 2) - (mWindowHeight / 2);
+			y_mod = pc->getY() + (pc->getHeight() / 2) - (mWindowHeight / 2);
 
+			if (y_mod < 0)
+				y_mod = 0;
 
-			if (mid_y < 0)
-				mid_y = 0;
-
-			if (mid_y + mWindowHeight > world_limit_y)
-				mid_y = world_limit_y - mWindowHeight;
+			if (y_mod + mWindowHeight > world_limit_y)
+				y_mod = world_limit_y - mWindowHeight;
 		}
 		else
 		{
 			float diff = world_limit_y - mWindowHeight;
-			mid_y =  diff / 2;
+			y_mod =  diff / 2;
 		}
 
-		glTranslatef(mid_x * -1, mid_y * -1, 0.0);
+		mOffsetX = x_mod * -1;
+		mOffsetY = y_mod * -1;
 	}
+	else
+	{
+		mOffsetX = 0.0;
+		mOffsetY = 0.0;
+	}
+
+	glTranslatef(mOffsetX, mOffsetY, 0.0);
 }
 
 void RenderEngine::renderWorld(World *world)
 {
-	for (int i = 0; i < world->getWidth(); i++)
+
+	// To improve render speed, we only draw the tiles that are actually in view
+	int start_x = (mOffsetX * -1) / TILE_SIZE;
+	int start_y = (mOffsetY * -1) / TILE_SIZE;
+	int end_x = start_x + mViewportWidth / TILE_SIZE + 1;
+	int end_y = start_y + mViewportHeight / TILE_SIZE + 1;
+
+	for (int i = start_x; i < end_x; i++)
 	{
-		for (int j = 0; j < world->getHeight(); j++)
+		for (int j = start_y; j < end_y; j++)
 		{
 			Tile* currentTile = world->getTile(i, j);
 			if (currentTile != NULL)
@@ -155,19 +168,23 @@ void RenderEngine::renderWorld(World *world)
 					glColor3f(1, 1, 1);
 					glRecti(i * TILE_SIZE, j * TILE_SIZE, i * TILE_SIZE + TILE_SIZE, j * TILE_SIZE + TILE_SIZE);
 				}
+				else if (currentTile->getType()->isCloud())
+				{
+					glColor3f(0, 0, 1);
+					glRecti(i * TILE_SIZE, j * TILE_SIZE, i * TILE_SIZE + TILE_SIZE, j * TILE_SIZE + TILE_SIZE);
+				}
 			}
 		}	
 	}
 	
-	// entities
+	// entities TODO: cull out entities that are not in view
 	std::set<Entity *>::iterator iter;
 	for (iter=world->mEntitySet.begin() ; iter != world->mEntitySet.end(); iter++)
 	{
-
 		renderEntity(*iter);
 	}
 
-	// grid
+	// development grid overlay
 	for (int i = 0; i < world->getWidth(); ++i)
 	{
 		for (int j = 0; j < world->getHeight(); ++j)

@@ -98,15 +98,23 @@ Tile* World::getTile(int x, int y)
 void World::setTile(Tile* tile, int x, int y)
 {
     std::vector<Tile *> * v = mMatrix.at(x);
+
+    // if we are replacing a tile, make sure we clean up
+    Tile* oldTile = v->at(y);
+    if (oldTile != NULL)
+    	delete oldTile;
+
+    // erase old tile
+    v->erase(v->begin() + y);
+
+    // insert new tile
     v->insert(v->begin() + y, tile);
 }
 
 bool World::addEntity(Entity * entity)
 {
     // TODO: check for collisions
-
     mEntitySet.insert(entity);
-
     return false;
 }
 

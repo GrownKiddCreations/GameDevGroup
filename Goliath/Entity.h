@@ -27,6 +27,8 @@ class Entity
         //x,y coords
         void setPosition(Vector2<float>);
         void setPosition(float, float);
+        void setPositionX(float);
+        void setPositionY(float);
 
         Rectangle<float> getBoundingBox();
 
@@ -39,6 +41,9 @@ class Entity
 
         Vector2<float> getVelocity();
         void setVelocity(float, float);
+        void setVelocityX(float);
+        void setVelocityY(float);
+
         float getMass();
 
         //what is this?
@@ -52,7 +57,7 @@ class Entity
         int left();
 
         // visitor methods
-        bool isOnPlatformDown(World*);
+        bool isOnPlatformDown(World*, bool, bool);
 
     private:
 
