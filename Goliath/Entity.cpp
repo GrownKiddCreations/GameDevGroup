@@ -199,7 +199,7 @@ bool Entity::isOnPlatformDown(World* world, bool testPassable, bool testCloud)
 		for (int i = 0; i < tiles_horizontal; ++i)
 		{
 			tile = world->getTile(bounds[2][0] - i, bounds[2][1] - 1);
-			if (tile != NULL && ((!tile->getType()->isPassable()) || (tile->getType()->isCloud())))
+			if (tile != NULL && ((testPassable && !tile->getType()->isPassable()) || (testCloud && tile->getType()->isCloud())))
 			{
 				return true;
 			}
